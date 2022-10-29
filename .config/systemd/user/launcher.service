@@ -1,0 +1,12 @@
+[Unit]
+Description=Linux Application Launcher
+Documentation=https://ulauncher.io/
+
+After=graphical-session-pre.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+ExecStart=env GDK_BACKEND=wayland /usr/bin/ulauncher --hide-window

@@ -1,0 +1,33 @@
+#! /usr/bin/env bash
+
+cmd=$1
+
+case $cmd in
+'toggle')
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
+	;;
+'up')
+	pactl set-sink-volume @DEFAULT_SINK@ +1%
+	;;
+'down')
+	pactl set-sink-volume @DEFAULT_SINK@ -1%
+	;;
+'' | *)
+	muted=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '/Mute/{print $2}')
+	if [[ "$muted" = "yes" ]]; then
+		echo "vol|int|0"
+		echo "mute|bool|true"
+		echo
+	else
+		vol=$(
+			pactl get-sink-volume @DEFAULT_SINK@ |
+				awk '/front-left/{print $5}' |
+				sed 's/\(.*\)%/\1/'
+		)
+
+		echo "vol|int|$vol"
+		echo "mute|bool|false"
+		echo
+	fi
+	;;
+esac

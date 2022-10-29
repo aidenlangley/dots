@@ -1,0 +1,9 @@
+[Unit]
+Description=kanshi
+Documentation=man:kanshi(1)
+
+After=graphical-session-pre.target
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/kanshi

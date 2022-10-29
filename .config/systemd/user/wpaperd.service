@@ -1,0 +1,9 @@
+[Unit]
+Description=wpaperd, wallpaper manager
+
+After=graphical-session-pre.target
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/wpaperd -n
+Restart=on-failure

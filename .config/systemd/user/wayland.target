@@ -1,0 +1,7 @@
+[Unit]
+Description=Wayland target
+
+After=graphical-session-pre.target
+BindsTo=graphical-session.target
+Upholds=kanshi.service bar.service launcher.service thunar.service wired.service
+Wants=graphical-session-pre.target gammastep.service gtk.service idle.service

@@ -1,0 +1,14 @@
+[Unit]
+Description=Configure GTK theme, icons & fonts
+
+After=graphical-session-pre.target
+PartOf=graphical-session.target
+
+[Service]
+Environment=\
+SCHEMA=org.gnome.desktop.interface
+
+ExecStart=/usr/bin/gsettings set $SCHEMA gtk-theme "Adwaita-dark"
+ExecStart=/usr/bin/gsettings set $SCHEMA icon-theme "Qogir-dark"
+ExecStart=/usr/bin/gsettings set $SCHEMA font-name "Source Sans Pro"
+Type=oneshot
