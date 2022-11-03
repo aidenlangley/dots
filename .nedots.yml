@@ -1,0 +1,5 @@
+dots:
+  - ".config/river"
+
+submodules:
+  - ".config/nvim"
