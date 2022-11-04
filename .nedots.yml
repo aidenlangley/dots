@@ -1,5 +1,71 @@
-dots:
-  - ".config/river"
+# All paths are relative to $HOME, unless they start with a forward slash.
+# All values can be overridden by env variables prefixed `NEDOTS_`.
 
+# The root directory - files [(ne)dots] are stored here.
+# Setting NEDOTS_ROOT will also set this value.
+root: ".nedots"
+
+# Home of configuration files [(ne)dots], `root/dots`.
+dots_dir: "dots"
+
+# Remote repository where you would like to store your files [(ne)dots]. Must
+# be read/write address for seamless integration.
+remote: "git@git.sr.ht:~nedia/nedots"
+
+# Enabling this will create symlinks in `root/syms` so that if you so choose
+# you can edit your files [(ne)dots] from a single workspace.
+symlink: false
+
+# Configuration files (or folders) are defined here. These files (or folders)
+# are copied into the `root/dots` directory.
+#
+# .gitignore rules are respected in any directories specified here.
+sources:
+  - ".asdfrc"
+  - ".config/fish"
+  - ".config/kanshi"
+  - ".config/kitty"
+  - ".config/river"
+  - ".config/swaylock"
+  - ".config/systemd"
+  - ".config/yambar"
+  - ".gitconfig"
+  - ".gtkrc-2.0"
+  - ".local/bin"
+  - ".profile"
+  - ".tool-versions"
+  - ".zsh"
+  - ".zshenv"
+  - "/etc/pacman.d/mirrorlist"
+  - "/etc/systemd/system/hibernate@aiden.service"
+  - "/etc/systemd/system/resume@aiden.service"
+  - "/etc/systemd/system/suspend@aiden.service"
+  - "Wallpapers"
+
+# Configuration may sometimes be managed by its own git repository. Here we can
+# define submodules - the remote URL is the read/write git repository address,
+# e.g. git@github.com/repo, and path where the configuration files live on your
+# system.
+#
+# When submodules are updated, instead of copying files to `root/dots`, we sync
+# the files in their source directory, and `git update` submodules before
+# syncing `root`.
 submodules:
-  - ".config/nvim"
+  - submodule:
+    remote: "git@git.sr.ht:~nedia/config.nvim"
+    path: ".config/nvim"
+
+# You may also specify systemd services that will be started via
+# `systemctl --user enable <service> --now` during `install` commands.
+systemd:
+  services:
+    # - "bar"
+    # - "bar.laptop"
+    # - "gammastep"
+    # - "idle"
+    # - "kanshi"
+    # - "launcher"
+    - "pipewire"
+    # - "thunar"
+    # - "wired"
+    - "wireplumber"

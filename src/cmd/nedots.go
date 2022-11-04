@@ -1,88 +1,70 @@
-// Package cmd ...
 package cmd
 
 import (
 	"fmt"
 	"os"
 
-	homedir "github.com/mitchellh/go-homedir"
+	"git.sr.ht/~nedia/nedots/config"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 var (
+	/* Command options/flags */
 	Verbosity  int
 	ConfigFile string
 	RootDir    string
-	rootCmd    = &cobra.Command{
+
+	rootCmd = &cobra.Command{
 		Use:   "nedots",
-		Short: "Manage (ne)dots - collect & sync dotfiles.",
+		Short: "Manage configuration files [(ne)dots] - collect & sync dotfiles.",
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Hello nedots!")
+			cmd.Help()
 		},
 	}
 )
 
-// Execute Run nedots, print error to stdout?
-func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+func init() {
+	cobra.OnInitialize(configure)
+	flags()
+	commands()
 }
 
-func init() {
-	cobra.OnInitialize(readConfigFile)
+func configure() {
+	config.Configure(ConfigFile, RootDir)
+}
 
+func flags() {
 	rootCmd.PersistentFlags().CountVarP(
 		&Verbosity,
 		"verbosity",
 		"v",
-		"uage: -vv (none: regular, 1: more verbose, 2: debug)",
+		"usage: -vv (none: regular, 1: more verbose, 2: debug)",
 	)
 	rootCmd.PersistentFlags().StringVarP(
 		&ConfigFile,
 		"config",
 		"c",
 		"",
-		"config file (default: $HOME/.nedots/.nedots.yml)",
+		"config file (default: ~/"+config.DEFAULT_CONFIG+")",
 	)
 	rootCmd.PersistentFlags().StringVarP(
 		&RootDir,
 		"directory",
 		"d",
 		"",
-		"nedots directory (default: $HOME/.nedots)",
+		"nedots directory (default: ~/"+config.DEFAULT_DIR+")",
 	)
-
-	rootCmd.AddCommand(syncCmd)
 }
 
-func readConfigFile() {
-	if ConfigFile != "" {
-		// We've been passed a configuration file so no need to find it ourselves
-		viper.SetConfigFile(ConfigFile)
-	} else {
-		if RootDir != "" {
-			// We've been passed a directory that is different to the default
-			viper.AddConfigPath(RootDir)
-		} else {
-			// Otherwise, we'll find the home directory & check the default location
-			// Find home directory
-			home, err := homedir.Dir()
-			if err != nil {
-				fmt.Println(err)
-				os.Exit(1)
-			}
+func commands() {
+	rootCmd.AddCommand(parseCmd)
+	rootCmd.AddCommand(syncCmd)
+	rootCmd.AddCommand(copyCmd)
+}
 
-			viper.AddConfigPath(home + "/.nedots")
-		}
-
-		viper.SetConfigName(".nedots")
-	}
-
-	if err := viper.ReadInConfig(); err != nil {
-		fmt.Println("Can't read config:", err)
+func Execute() {
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Println(err)
 		os.Exit(1)
 	}
 }
