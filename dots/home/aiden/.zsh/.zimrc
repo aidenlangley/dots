@@ -1,0 +1,35 @@
+#! /usr/bin/env sh
+
+zmodule zsh-users/zsh-completions --fpath src
+zmodule completion
+
+zmodule zsh-users/zsh-syntax-highlighting
+zmodule zsh-users/zsh-autosuggestions
+
+# Behaviour
+zmodule environment
+zmodule input
+zmodule run-help
+
+# Productivity / Utility
+zmodule archive     # Utilities for managing archives
+zmodule asdf        # https://asdf-vm.com/
+zmodule fzf         # Improves fzf
+zmodule git         # Adds useful git aliases & functions
+zmodule magic-enter # https://github.com/zimfw/magic-enter
+zmodule utility     # https://github.com/zimfw/utility
+# zmodule ssh         # Convenient way to load keys into ssh-agent
+
+# https://zimfw.sh/docs/themes/
+zmodule minimal
+zmodule duration-info # Time taken to run process
+zmodule git-info      # Extra info re git repositories
+zmodule prompt-pwd    # Formats pwd
+
+# https://github.com/ohmyzsh/ohmyzsh/wiki/plugins
+zmodule ohmyzsh/ohmyzsh --root plugins/command-not-found
+zmodule ohmyzsh/ohmyzsh --root plugins/globalias
+zmodule ohmyzsh/ohmyzsh --root plugins/zsh-interactive-cd
+# zmodule ohmyzsh/ohmyzsh --root plugins/pass # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/pass
+
+zmodule joke/zim-chezmoi # https://www.chezmoi.io/
