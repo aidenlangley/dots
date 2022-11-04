@@ -1,10 +1,6 @@
 package cmd
 
-import (
-	"fmt"
-
-	"github.com/spf13/cobra"
-)
+import "github.com/spf13/cobra"
 
 var (
 	Only []string
@@ -12,10 +8,12 @@ var (
 	syncCmd = &cobra.Command{
 		Use:   "sync",
 		Short: "Sync files with remote",
-		Long: `Sync files with remote.
-    Fastforward and push latest changes to remote.`,
+		Long: `Sync files with remote. Copy sources to dots_dir, fetch from remote,
+    fastforward, and if there are no merge conflicts, push latest changes to
+    remote.`,
+
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Hello sync!")
+			Copy()
 		},
 	}
 )

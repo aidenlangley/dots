@@ -1,0 +1,69 @@
+#! /usr/bin/env bash
+# shellcheck disable=2016
+
+riverctl map -repeat normal Super+Control H send-layout-cmd rivertile "main-ratio -0.01"
+riverctl map -repeat normal Super+Control L send-layout-cmd rivertile "main-ratio +0.01"
+riverctl map -repeat normal Super+Control Left send-layout-cmd rivertile "main-ratio -0.01"
+riverctl map -repeat normal Super+Control Right send-layout-cmd rivertile "main-ratio +0.01"
+riverctl map normal Alt Tab focus-view next
+riverctl map normal Alt+Shift Tab focus-view next
+riverctl map normal Control P spawn ulauncher-toggle
+riverctl map normal Super B spawn firefox
+riverctl map normal Super Comma focus-output previous
+riverctl map normal Super E spawn 'kitty -e ranger'
+riverctl map normal Super Equal send-layout-cmd rivertile "main-count +1"
+riverctl map normal Super F toggle-fullscreen
+riverctl map normal Super H focus-view previous
+riverctl map normal Super L focus-view next
+riverctl map normal Super Left focus-view previous
+riverctl map normal Super Minus send-layout-cmd rivertile "main-count -1"
+riverctl map normal Super P set-view-tags "$ALL_TAGS"
+riverctl map normal Super Period focus-output next
+riverctl map normal Super Return spawn kitty
+riverctl map normal Super Right focus-view next
+riverctl map normal Super T toggle-float
+riverctl map normal Super W close
+riverctl map normal Super Z zoom
+riverctl map normal Super+Control Down send-layout-cmd rivertile "main-location left"
+riverctl map normal Super+Control J send-layout-cmd rivertile "main-location left"
+riverctl map normal Super+Control K send-layout-cmd rivertile "main-location top"
+riverctl map normal Super+Control Up send-layout-cmd rivertile "main-location top"
+riverctl map normal Super+Shift Comma send-to-output previous
+riverctl map normal Super+Shift E spawn thunar
+riverctl map normal Super+Shift H swap previous
+riverctl map normal Super+Shift L swap next
+riverctl map normal Super+Shift Left swap previous
+riverctl map normal Super+Shift Period send-to-output next
+riverctl map normal Super+Shift Q exit
+riverctl map normal Super+Shift Right swap next
+
+riverctl map-pointer normal Super BTN_LEFT move-view
+riverctl map-pointer normal Super BTN_RIGHT resize-view
+
+for i in $(seq 1 9); do
+	tags="$(qalc -t "2 ^ ($i - 1)")"
+	riverctl map normal Super "$i" toggle-focused-tags "$tags"
+	riverctl map normal Super+Shift "$i" set-view-tags "$tags"
+done
+
+riverctl declare-mode passthrough
+riverctl map normal Super F11 enter-mode passthrough
+riverctl map passthrough Super F11 enter-mode normal
+
+for mode in normal locked; do
+	riverctl map $mode None XF86AudioMute spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+	riverctl map $mode None XF86AudioRaiseVolume spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"
+	riverctl map $mode None XF86AudioLowerVolume spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+	riverctl map $mode None XF86AudioMicMute spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+
+	riverctl map $mode None XF86AudioPlay spawn "playerctl play-pause"
+	riverctl map $mode None XF86AudioPause spawn "playerctl pause"
+	riverctl map $mode None XF86AudioPrev spawn "playerctl previous"
+	riverctl map $mode None XF86AudioNext spawn "playerctl next"
+
+	riverctl map $mode None XF86MonBrightnessUp spawn "light -A 1"
+	riverctl map $mode None XF86MonBrightnessDown spawn "light -U 1"
+done
+
+riverctl map normal None Print spawn "grim - | swappy -f - "
+riverctl map normal Shift Print spawn 'grim -g "$(slurp)" - | swappy -f - '

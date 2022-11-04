@@ -1,0 +1,9 @@
+[Unit]
+Description=Status bar: yambar
+Documentation=man:yambar(1)
+
+After=graphical-session-pre.target
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/yambar -c %h/.config/yambar/main.yml -l auto -d warning

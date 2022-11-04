@@ -1,0 +1,679 @@
+# Colours
+# IDE highlights the colours so we want it this way
+# yamllint disable rule:comments
+# yamllint disable rule:document-start
+bg: &bg 282828ff #282828
+fg: &fg ebdbb2ff #ebdbb2
+light: &light 89786Eff #89786E
+border: &border 504945ff #504945
+highlight: &highlight d8a657ff #d8a657
+urgent: &urgent ea6962ff #ea6962
+affirm: &affirm a9b665ff #a9b665
+# yamllint enable
+
+# Fonts
+font: &font "JetBrains Mono:pixelsize=12"
+bold: &bold "JetBrains Mono:style=Bold:pixelsize=12"
+symbols: &symbols "Symbols Nerd Font:pixelsize=14"
+
+# Spacing
+spacing: &spacing 4
+margin: &margin 12
+
+# Network
+net_poll_interval: &net_poll_interval 1
+dl_speed: &dl_speed "{dl-speed:mb}:{up-speed:mb} Mbps"
+net_down: &net_down {text: "", font: *symbols, foreground: *light}
+
+bar:
+  monitor: "HDMI-A-1"
+  location: "top"
+  height: 32
+  spacing: *spacing
+  right-margin: *margin
+  background: *bg
+  foreground: *fg
+  border:
+    bottom-width: 1
+    color: *border
+  font: *font
+
+  left:
+    # Highlights windows that are tagged
+    - river:
+        anchors:
+          - padding: &river_padding 12
+        content:
+          map:
+            default: {empty: {}}
+            conditions:
+              state == "urgent":
+                - string:
+                    text: "{id}"
+                    font: *bold
+                    foreground: *bg
+                    deco: {background: {color: *urgent}}
+                    margin: *river_padding
+              state == "focused":
+                - string:
+                    text: "{id}"
+                    font: *bold
+                    foreground: *bg
+                    deco: {background: {color: *fg}}
+                    margin: *river_padding
+              state == "unfocused":
+                - string:
+                    text: "{id}"
+                    deco: {background: {color: *border}}
+                    margin: *river_padding
+              occupied:
+                - string:
+                    text: "{id}"
+                    margin: *river_padding
+
+    # - script:
+    #     path: "/home/aiden/.local/bin/disk"
+
+    # - script:
+    #     path: "/home/aiden/.local/bin/cpu"
+    #     args: [1]
+    #     anchors:
+    #       - icon: &cpu_icon "龍"
+    #       - usage: &cpu_usage "{cpu}%"
+    #     content:
+    #       map:
+    #         margin: *spacing
+    #         default:
+    #           - string: {text: *cpu_icon, font: *symbols, margin: *spacing}
+    #           - string: {text: *cpu_usage}
+    #         conditions:
+    #           cpu < 20:
+    #             - string:
+    #                 text: *cpu_icon
+    #                 font: *symbols
+    #                 foreground: *light
+    #                 margin: *spacing
+    #             - string:
+    #                 text: *cpu_usage
+    #                 foreground: *light
+    #           cpu >= 60:
+    #             - string:
+    #                 text: *cpu_icon
+    #                 font: *symbols
+    #                 foreground: *highlight
+    #                 margin: *spacing
+    #             - string:
+    #                 text: *cpu_usage
+    #                 font: *bold
+    #                 foreground: *highlight
+    #           cpu >= 80:
+    #             - string:
+    #                 text: *cpu_icon
+    #                 font: *symbols
+    #                 foreground: *urgent
+    #                 margin: *spacing
+    #             - string:
+    #                 text: *cpu_usage
+    #                 font: *bold
+    #                 foreground: *urgent
+
+    - mem:
+        interval: 1000
+        anchors:
+          - icon: &mem_icon ""
+          - used: &mem_used "{used:mb}"
+          - denominator: &mem_denom "MB"
+        content:
+          map:
+            margin: *spacing
+            default:
+              - string:
+                  text: *mem_icon
+                  font: *symbols
+                  margin: *spacing
+              - string: {text: *mem_used}
+              - string: {text: *mem_denom}
+            conditions:
+              percent_used < 20:
+                - string:
+                    text: *mem_icon
+                    font: *symbols
+                    foreground: *border
+                    margin: *spacing
+                - string:
+                    text: *mem_used
+                    foreground: *border
+                - string:
+                    text: *mem_denom
+                    foreground: *border
+              percent_used < 40:
+                - string:
+                    text: *mem_icon
+                    font: *symbols
+                    foreground: *light
+                    margin: *spacing
+                - string:
+                    text: *mem_used
+                    foreground: *light
+                - string:
+                    text: *mem_denom
+                    foreground: *light
+              percent_used >= 60:
+                - string:
+                    text: *mem_icon
+                    font: *symbols
+                    foreground: *highlight
+                    margin: *spacing
+                - string:
+                    text: *mem_used
+                    font: *bold
+                    foreground: *highlight
+                - string:
+                    text: *mem_denom
+                    foreground: *highlight
+              percent_used >= 80:
+                - string:
+                    text: *mem_icon
+                    font: *symbols
+                    foreground: *urgent
+                    margin: *spacing
+                - string:
+                    text: *mem_used
+                    font: *bold
+                    foreground: *urgent
+                - string:
+                    text: *mem_denom
+                    foreground: *urgent
+
+    # - script:
+    #     path: "/home/aiden/.local/bin/mem"
+    #     args: ["mem", 8]
+    #     anchors:
+    #       - icon: &mem_icon ""
+    #       - used: &mem_used "{used} MiB"
+    #     content:
+    #       map:
+    #         margin: *spacing
+    #         default:
+    #           - string: {text: *mem_icon, font: *symbols, margin: *spacing}
+    #           - string: {text: *mem_used}
+    #         conditions:
+    #           percent < 20:
+    #             - string:
+    #                 text: *mem_icon
+    #                 font: *symbols
+    #                 foreground: *light
+    #                 margin: *spacing
+    #             - string:
+    #                 text: *mem_used
+    #                 font: *bold
+    #                 foreground: *light
+    #           percent >= 60:
+    #             - string:
+    #                 text: *mem_icon
+    #                 font: *symbols
+    #                 foreground: *highlight
+    #                 margin: *spacing
+    #             - string:
+    #                 text: *mem_used
+    #                 font: *bold
+    #                 foreground: *highlight
+    #           percent >= 80:
+    #             - string:
+    #                 text: *mem_icon
+    #                 font: *symbols
+    #                 foreground: *urgent
+    #                 margin: *spacing
+    #             - string:
+    #                 text: *mem_used
+    #                 font: *bold
+    #                 foreground: *urgent
+
+    - script:
+        path: "/home/aiden/.local/bin/cputemp"
+        args: [4]
+        anchors: {temp: &temp "{temp}°C"}
+        content:
+          ramp:
+            tag: temp
+            min: 30
+            max: 99
+            items:
+              - list:
+                  items:
+                    - string:
+                        text: ""
+                        font: *symbols
+                        foreground: *border
+                        margin: *spacing
+                    - string: {text: *temp, foreground: *border}
+              - list:
+                  items:
+                    - string:
+                        text: ""
+                        font: *symbols
+                        foreground: *light
+                        margin: *spacing
+                    - string: {text: *temp, foreground: *light}
+              - list:
+                  items:
+                    - string: {text: "", font: *symbols, margin: *spacing}
+                    - string: {text: *temp}
+              - list:
+                  items:
+                    - string: {text: "", font: *symbols, margin: *spacing}
+                    - string: {text: *temp}
+              - list:
+                  items:
+                    - string:
+                        text: ""
+                        font: *symbols
+                        margin: *spacing
+                        foreground: *highlight
+                    - string:
+                        text: *temp
+                        font: *bold
+                        foreground: *highlight
+              - list:
+                  items:
+                    - string:
+                        text: ""
+                        font: *symbols
+                        margin: *spacing
+                        foreground: *urgent
+                    - string:
+                        text: *temp
+                        font: *bold
+                        foreground: *urgent
+
+    - script:
+        path: "/home/aiden/.local/bin/mem"
+        args: ["swap", 8]
+        anchors:
+          - icon: &swap_icon ""
+          - used: &swap_used "{used}MiB"
+        content:
+          map:
+            margin: *spacing
+            default:
+              - string:
+                  text: *swap_icon
+                  font: *symbols
+                  margin: *spacing
+              - string:
+                  text: *swap_used
+            conditions:
+              percent == 0: {empty: {}}
+              percent < 20:
+                - string:
+                    text: *swap_icon
+                    font: *symbols
+                    foreground: *border
+                    margin: *spacing
+                - string:
+                    {text: *swap_used, foreground: *border}
+              percent < 40:
+                - string:
+                    text: *swap_icon
+                    font: *symbols
+                    foreground: *light
+                    margin: *spacing
+                - string: {text: *swap_used, foreground: *light}
+              percent >= 60:
+                - string:
+                    text: *swap_icon
+                    font: *symbols
+                    foreground: *highlight
+                    margin: *spacing
+                - string:
+                    text: *swap_used
+                    font: *bold
+                    foreground: *highlight
+              percent >= 80:
+                - string:
+                    text: *swap_icon
+                    font: *symbols
+                    foreground: *urgent
+                    margin: *spacing
+                - string:
+                    text: *swap_used
+                    font: *bold
+                    foreground: *urgent
+
+    - cpu:
+        interval: 1000
+        anchors:
+          - icon: &cpu_icon "龍"
+          - usage: &cpu_usage "{cpu}%"
+        content:
+          map:
+            margin: *spacing
+            default:
+              - string: {text: *cpu_icon, font: *symbols, margin: *spacing}
+              - string: {text: *cpu_usage}
+            conditions:
+              cpu < 15:
+                - string:
+                    text: *cpu_icon
+                    font: *symbols
+                    foreground: *border
+                    margin: *spacing
+                - string:
+                    text: *cpu_usage
+                    foreground: *border
+              cpu < 30:
+                - string:
+                    text: *cpu_icon
+                    font: *symbols
+                    foreground: *light
+                    margin: *spacing
+                - string:
+                    text: *cpu_usage
+                    foreground: *light
+              cpu >= 60:
+                - string:
+                    text: *cpu_icon
+                    font: *symbols
+                    foreground: *highlight
+                    margin: *spacing
+                - string:
+                    text: *cpu_usage
+                    font: *bold
+                    foreground: *highlight
+              cpu >= 80:
+                - string:
+                    text: *cpu_icon
+                    font: *symbols
+                    foreground: *urgent
+                    margin: *spacing
+                - string:
+                    text: *cpu_usage
+                    font: *bold
+                    foreground: *urgent
+
+    - disk-io:
+        interval: 1000
+        content:
+          map:
+            conditions:
+              device == "nvme0n1p2":
+                map:
+                  conditions:
+                    read_speed > 1073741824:
+                      - string:
+                          text: "{read_speed:gib}GiB/s"
+                    read_speed > 1048576:
+                      - string:
+                          text: "{read_speed:mib}MiB/s"
+                          foreground: *light
+                    read_speed > 1024:
+                      - string:
+                          text: "{read_speed:kib}KiB/s"
+                          foreground: *border
+
+    - disk-io:
+        interval: 1000
+        content:
+          map:
+            conditions:
+              device == "nvme0n1p2":
+                map:
+                  conditions:
+                    write_speed > 1073741824:
+                      - string:
+                          text: "{write_speed:gib}GiB/s"
+                    write_speed > 1048576:
+                      - string:
+                          text: "{write_speed:mib}MiB/s"
+                          foreground: *light
+                    write_speed > 1024:
+                      - string:
+                          text: "{write_speed:kib}KiB/s"
+                          foreground: *border
+
+  center:
+    # Displays window title
+    - foreign-toplevel:
+        content:
+          map:
+            default:
+              - string: {text: "[", foreground: *border}
+              - string: {text: "{app-id}", foreground: *light, font: *bold}
+              - string: {text: "]", foreground: *border}
+              - string: {text: "{title}", max: 64, margin: *spacing}
+            conditions:
+              ~activated: {empty: {}}
+
+  right:
+    - network:
+        name: "enp2s0"
+        poll-interval: *net_poll_interval
+        content:
+          map:
+            conditions:
+              ~carrier: {empty: {}}
+              carrier:
+                map:
+                  default:
+                    - string: {text: *dl_speed, margin: *spacing}
+                    - string: {text: "", font: *symbols}
+                  conditions:
+                    state == "down": {string: *net_down}
+
+    - network:
+        name: "wlp3s0"
+        poll-interval: *net_poll_interval
+        content:
+          map:
+            conditions:
+              ~carrier: {empty: {}}
+              carrier:
+                map:
+                  default:
+                    - string: {text: "{ssid}", margin: *spacing}
+                    # - string:
+                    #     text: *dl_speed
+                    #     foreground: *light
+                    #     right-margin: *spacing
+                    - string: {text: "﬉", font: *symbols}
+                  conditions:
+                    state == "down": {string: *net_down}
+
+    - backlight:
+        name: "amdgpu_bl0"
+        anchors:
+          text: &backlight_text "{percent}%"
+        content:
+          - string:
+              text: *backlight_text
+              margin: *spacing
+              on-click:
+                left: "systemctl --user stop idle"
+                right: "systemctl --user start idle"
+                wheel-up: "light -A 1"
+                wheel-down: "light -U 1"
+          - string: {text: "盛", font: *symbols}
+
+    - script:
+        path: "/home/aiden/.local/bin/vol"
+        poll-interval: 1
+        content:
+          map:
+            on-click:
+              left: "/home/aiden/.local/bin/vol toggle"
+              right: "pavucontrol"
+              wheel-up: "/home/aiden/.local/bin/vol up"
+              wheel-down: "/home/aiden/.local/bin/vol down"
+            default:
+              ramp:
+                tag: vol
+                min: 0
+                max: 100
+                items:
+                  - list:
+                      items:
+                        - string: {text: "{vol}%", margin: *spacing}
+                        - string: {text: "", font: *symbols}
+                  - list:
+                      items:
+                        - string: {text: "{vol}%", margin: *spacing}
+                        - string: {text: "", font: *symbols}
+                  - list:
+                      items:
+                        - string: {text: "{vol}%", margin: *spacing}
+                        - string: {text: "墳", font: *symbols}
+                  - list:
+                      items:
+                        - string: {text: "{vol}%", margin: *spacing}
+                        - string: {text: "", font: *symbols}
+            conditions:
+              mute:
+                - list:
+                    items:
+                      - string:
+                          text: "muted"
+                          foreground: *border
+                          margin: *spacing
+                      - string:
+                          text: "婢"
+                          font: *symbols
+                          foreground: *border
+
+    - clock:
+        date-format: "%a"
+        time-format: "%H:%M:%S"
+        content:
+          - string: {text: "{date}"}
+          - string: {text: ",", foreground: *light}
+          - string: {text: "{time}", font: *bold, margin: *spacing}
+          - string: {text: "", font: *symbols}
+
+    - battery:
+        name: "BAT0"
+        poll-interval: 30
+        anchors:
+          capacity: &capacity "{capacity}%"
+          estimate: &estimate "{estimate}"
+        content:
+          map:
+            default:
+              ramp:
+                tag: "capacity"
+                min: 0
+                max: 100
+                items:
+                  - list:
+                      items:
+                        - string:
+                            text: *capacity
+                            font: *bold
+                            foreground: *urgent
+                            margin: *spacing
+                        - string:
+                            text: ""
+                            font: *symbols
+                            foreground: *urgent
+                  - list:
+                      items:
+                        - string:
+                            text: *capacity
+                            font: *bold
+                            foreground: *urgent
+                            margin: *spacing
+                        - string:
+                            text: ""
+                            font: *symbols
+                            foreground: *urgent
+                  - list:
+                      items:
+                        - string: {text: *capacity, margin: *spacing}
+                        - string:
+                            text: ""
+                            font: *symbols
+                            foreground: *highlight
+                  - list:
+                      items:
+                        - string: {text: *capacity, margin: *spacing}
+                        - string:
+                            text: ""
+                            font: *symbols
+                            foreground: *highlight
+                  - list:
+                      items:
+                        - string: {text: *capacity, margin: *spacing}
+                        - string: {text: "", font: *symbols}
+                  - list:
+                      items:
+                        - string: {text: *capacity, margin: *spacing}
+                        - string: {text: "", font: *symbols}
+                  - list:
+                      items:
+                        - string: {text: *capacity, margin: *spacing}
+                        - string: {text: "", font: *symbols}
+                  - list:
+                      items:
+                        - string: {text: *capacity, margin: *spacing}
+                        - string: {text: "", font: *symbols}
+                  - list:
+                      items:
+                        - string: {text: *capacity, margin: *spacing}
+                        - string: {text: "", font: *symbols}
+                  - list:
+                      items:
+                        - string: {text: *capacity, margin: *spacing}
+                        - string: {text: "", font: *symbols}
+                  - list:
+                      items:
+                        - string:
+                            text: ""
+                            font: *symbols
+                            foreground: *affirm
+            conditions:
+              state == "full":
+                - string: {text: "", font: *symbols, foreground: *affirm}
+              state == "charging":
+                ramp:
+                  tag: "capacity"
+                  min: 0
+                  max: 100
+                  items:
+                    - list:
+                        items:
+                          - string: {text: *estimate, margin: *spacing}
+                          - string:
+                              text: ""
+                              font: *symbols
+                              foreground: *urgent
+                    - list:
+                        items:
+                          - string: {text: *estimate, margin: *spacing}
+                          - string:
+                              text: ""
+                              font: *symbols
+                              foreground: *highlight
+                    - list:
+                        items:
+                          - string: {text: *estimate, margin: *spacing}
+                          - string: {text: "", font: *symbols}
+                    - list:
+                        items:
+                          - string: {text: *estimate, margin: *spacing}
+                          - string: {text: "", font: *symbols}
+                    - list:
+                        items:
+                          - string: {text: *estimate, margin: *spacing}
+                          - string: {text: "", font: *symbols}
+                    - list:
+                        items:
+                          - string: {text: *estimate, margin: *spacing}
+                          - string: {text: "", font: *symbols}
+                    - list:
+                        items:
+                          - string: {text: *estimate, margin: *spacing}
+                          - string: {text: "", font: *symbols}
+                    - list:
+                        items:
+                          - string:
+                              text: ""
+                              font: *symbols
+                              foreground: *affirm
