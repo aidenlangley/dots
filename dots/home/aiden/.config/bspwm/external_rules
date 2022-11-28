@@ -1,0 +1,22 @@
+#! /usr/bin/env fish
+
+set window_id $argv[1]
+set class $argv[2]
+set instance $argv[3]
+set consequences $argv[4]
+set title (xtitle $window_id)
+
+switch $class
+    case firefox
+        switch $title
+            case Picture-in-Picture
+                echo 'state=floating sticky=on'
+        end
+    case 'YaST2*'
+        echo 'state=floating'
+    case '*'
+        switch $title
+            case Picture-in-picture
+                echo 'state=floating sticky=on'
+        end
+end

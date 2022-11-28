@@ -1,0 +1,13 @@
+#! /usr/bin/env fish
+
+bspc subscribe node_add node_focus | while read -a msg
+    set event $msg[1]
+    if [ $msg[3] = (bspc query -D -d 'IV') ]
+        if [ $event = node_add ]
+            bspc node $msg[5] -t floating
+        end
+        if [ $event = node_focus ]
+            bspc node $msg[4] -l above
+        end
+    end
+end
