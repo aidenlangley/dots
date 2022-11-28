@@ -1,3 +1,5 @@
+---
+
 # All paths are relative to $HOME, unless they start with a forward slash.
 # All values can be overridden by env variables prefixed `NEDOTS_`.
 
@@ -7,6 +9,9 @@ root: ".nedots"
 
 # Home of configuration files [(ne)dots], `root/dots`.
 dots_dir: "dots"
+
+# Where to store backups.
+backup_dir: "backups"
 
 # Remote repository where you would like to store your files [(ne)dots]. Must
 # be read/write address for seamless integration.
@@ -60,16 +65,6 @@ sources:
 # When submodules are updated, instead of copying files to `root/dots`, we sync
 # the files in their source directory, and `git update` submodules before
 # syncing `root`.
-# submodules:
-#   - submodule:
-#     name: "nvim"
-#     remote: "git@git.sr.ht:~nedia/config.nvim"
-#     path: ".config/nvim"
-#   - submodule:
-#     name: "other"
-#     remote: "git@git.sr.ht:~nedia/other"
-#     path: "other"
-
 git_repos:
   - repo:
     id: "nvim"

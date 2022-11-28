@@ -23,11 +23,12 @@ abbr ls exa
 abbr lsd "exa -T -L"
 
 abbr ca bat
+abbr cht "cht.sh"
 abbr e "$EDITOR"
+abbr lg lazygit
 abbr nv nvim
 abbr py python
 abbr to touch
-abbr cht "cht.sh"
 
 abbr count "wc -l"
 abbr alias "abbr -l"
