@@ -28,7 +28,7 @@ alias mk="mkdir -vp"
 alias mv="mv -v"
 
 # Shortcuts
-alias e=lvim
+alias e=nv
 alias g=lazygit
 alias k=pkill
 alias lv=lvim

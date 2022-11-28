@@ -10,12 +10,3 @@ source_dir() {
 		fi
 	fi
 }
-
-rm() {
-	trash="$HOME/.local/share/Trash/files"
-	mv -v "$1" "$trash"
-}
-
-uptime() {
-    command uptime | awk '/up/{print $3,$4}' | sed 's/\(.*\),/\1 /'
-}

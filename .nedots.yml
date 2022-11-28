@@ -21,7 +21,6 @@ symlink: false
 #
 # .gitignore rules are respected in any directories specified here.
 sources:
-  - ".asdfrc"
   - ".config/fish"
   - ".config/kanshi"
   - ".config/kitty"
@@ -33,13 +32,21 @@ sources:
   - ".gtkrc-2.0"
   - ".local/bin"
   - ".profile"
-  - ".tool-versions"
   - ".zsh"
   - ".zshenv"
+  - "/etc/fstab"
+  - "/etc/greetd/config.toml"
+  - "/etc/hostname"
+  - "/etc/locale.conf"
+  - "/etc/pacman.conf"
   - "/etc/pacman.d/mirrorlist"
+  - "/etc/sysctl.d/99-swappiness.conf"
+  - "/etc/systemd/logind.conf"
+  - "/etc/systemd/sleep.conf"
   - "/etc/systemd/system/hibernate@aiden.service"
   - "/etc/systemd/system/resume@aiden.service"
   - "/etc/systemd/system/suspend@aiden.service"
+  - "/usr/local/bin/river-run"
   - "Wallpapers"
 
 # Configuration may sometimes be managed by its own git repository. Here we can
@@ -50,22 +57,32 @@ sources:
 # When submodules are updated, instead of copying files to `root/dots`, we sync
 # the files in their source directory, and `git update` submodules before
 # syncing `root`.
-submodules:
-  - submodule:
+# submodules:
+#   - submodule:
+#     name: "nvim"
+#     remote: "git@git.sr.ht:~nedia/config.nvim"
+#     path: ".config/nvim"
+#   - submodule:
+#     name: "other"
+#     remote: "git@git.sr.ht:~nedia/other"
+#     path: "other"
+
+git_repos:
+  - repo:
+    id: "nvim"
     remote: "git@git.sr.ht:~nedia/config.nvim"
     path: ".config/nvim"
 
 # You may also specify systemd services that will be started via
 # `systemctl --user enable <service> --now` during `install` commands.
-systemd:
-  services:
-    # - "bar"
-    # - "bar.laptop"
-    # - "gammastep"
-    # - "idle"
-    # - "kanshi"
-    # - "launcher"
-    - "pipewire"
-    # - "thunar"
-    # - "wired"
-    - "wireplumber"
+systemd_services:
+  # - "bar"
+  # - "bar.laptop"
+  # - "gammastep"
+  # - "idle"
+  # - "kanshi"
+  # - "launcher"
+  - "pipewire"
+  # - "thunar"
+  # - "wired"
+  - "wireplumber"

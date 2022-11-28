@@ -134,6 +134,32 @@ bar:
               - string: {text: *mem_used}
               - string: {text: *mem_denom}
             conditions:
+              percent_used >= 90:
+                - string:
+                    text: *mem_icon
+                    font: *symbols
+                    foreground: *urgent
+                    margin: *spacing
+                - string:
+                    text: *mem_used
+                    font: *bold
+                    foreground: *urgent
+                - string:
+                    text: *mem_denom
+                    foreground: *urgent
+              percent_used >= 80:
+                - string:
+                    text: *mem_icon
+                    font: *symbols
+                    foreground: *highlight
+                    margin: *spacing
+                - string:
+                    text: *mem_used
+                    font: *bold
+                    foreground: *highlight
+                - string:
+                    text: *mem_denom
+                    foreground: *highlight
               percent_used < 20:
                 - string:
                     text: *mem_icon
@@ -158,32 +184,6 @@ bar:
                 - string:
                     text: *mem_denom
                     foreground: *light
-              percent_used >= 60:
-                - string:
-                    text: *mem_icon
-                    font: *symbols
-                    foreground: *highlight
-                    margin: *spacing
-                - string:
-                    text: *mem_used
-                    font: *bold
-                    foreground: *highlight
-                - string:
-                    text: *mem_denom
-                    foreground: *highlight
-              percent_used >= 80:
-                - string:
-                    text: *mem_icon
-                    font: *symbols
-                    foreground: *urgent
-                    margin: *spacing
-                - string:
-                    text: *mem_used
-                    font: *bold
-                    foreground: *urgent
-                - string:
-                    text: *mem_denom
-                    foreground: *urgent
 
     # - script:
     #     path: "/home/aiden/.local/bin/mem"
@@ -228,6 +228,60 @@ bar:
     #                 text: *mem_used
     #                 font: *bold
     #                 foreground: *urgent
+
+    - script:
+        path: "/home/aiden/.local/bin/mem"
+        args: ["swap", 8]
+        anchors:
+          - icon: &swap_icon ""
+          - used: &swap_used "{used}MiB"
+        content:
+          map:
+            margin: *spacing
+            default:
+              - string:
+                  text: *swap_icon
+                  font: *symbols
+                  margin: *spacing
+              - string:
+                  text: *swap_used
+            conditions:
+              percent == 0: {empty: {}}
+              percent >= 90:
+                - string:
+                    text: *swap_icon
+                    font: *symbols
+                    foreground: *urgent
+                    margin: *spacing
+                - string:
+                    text: *swap_used
+                    font: *bold
+                    foreground: *urgent
+              percent >= 80:
+                - string:
+                    text: *swap_icon
+                    font: *symbols
+                    foreground: *highlight
+                    margin: *spacing
+                - string:
+                    text: *swap_used
+                    font: *bold
+                    foreground: *highlight
+              percent < 40:
+                - string:
+                    text: *swap_icon
+                    font: *symbols
+                    foreground: *border
+                    margin: *spacing
+                - string:
+                    {text: *swap_used, foreground: *border}
+              percent < 60:
+                - string:
+                    text: *swap_icon
+                    font: *symbols
+                    foreground: *light
+                    margin: *spacing
+                - string: {text: *swap_used, foreground: *light}
 
     - script:
         path: "/home/aiden/.local/bin/cputemp"
@@ -286,60 +340,6 @@ bar:
                         font: *bold
                         foreground: *urgent
 
-    - script:
-        path: "/home/aiden/.local/bin/mem"
-        args: ["swap", 8]
-        anchors:
-          - icon: &swap_icon ""
-          - used: &swap_used "{used}MiB"
-        content:
-          map:
-            margin: *spacing
-            default:
-              - string:
-                  text: *swap_icon
-                  font: *symbols
-                  margin: *spacing
-              - string:
-                  text: *swap_used
-            conditions:
-              percent == 0: {empty: {}}
-              percent < 20:
-                - string:
-                    text: *swap_icon
-                    font: *symbols
-                    foreground: *border
-                    margin: *spacing
-                - string:
-                    {text: *swap_used, foreground: *border}
-              percent < 40:
-                - string:
-                    text: *swap_icon
-                    font: *symbols
-                    foreground: *light
-                    margin: *spacing
-                - string: {text: *swap_used, foreground: *light}
-              percent >= 60:
-                - string:
-                    text: *swap_icon
-                    font: *symbols
-                    foreground: *highlight
-                    margin: *spacing
-                - string:
-                    text: *swap_used
-                    font: *bold
-                    foreground: *highlight
-              percent >= 80:
-                - string:
-                    text: *swap_icon
-                    font: *symbols
-                    foreground: *urgent
-                    margin: *spacing
-                - string:
-                    text: *swap_used
-                    font: *bold
-                    foreground: *urgent
-
     - cpu:
         interval: 1000
         anchors:
@@ -352,6 +352,26 @@ bar:
               - string: {text: *cpu_icon, font: *symbols, margin: *spacing}
               - string: {text: *cpu_usage}
             conditions:
+              cpu >= 80:
+                - string:
+                    text: *cpu_icon
+                    font: *symbols
+                    foreground: *urgent
+                    margin: *spacing
+                - string:
+                    text: *cpu_usage
+                    font: *bold
+                    foreground: *urgent
+              cpu >= 60:
+                - string:
+                    text: *cpu_icon
+                    font: *symbols
+                    foreground: *highlight
+                    margin: *spacing
+                - string:
+                    text: *cpu_usage
+                    font: *bold
+                    foreground: *highlight
               cpu < 15:
                 - string:
                     text: *cpu_icon
@@ -370,26 +390,6 @@ bar:
                 - string:
                     text: *cpu_usage
                     foreground: *light
-              cpu >= 60:
-                - string:
-                    text: *cpu_icon
-                    font: *symbols
-                    foreground: *highlight
-                    margin: *spacing
-                - string:
-                    text: *cpu_usage
-                    font: *bold
-                    foreground: *highlight
-              cpu >= 80:
-                - string:
-                    text: *cpu_icon
-                    font: *symbols
-                    foreground: *urgent
-                    margin: *spacing
-                - string:
-                    text: *cpu_usage
-                    font: *bold
-                    foreground: *urgent
 
     - disk-io:
         interval: 1000

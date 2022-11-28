@@ -1,0 +1,28 @@
+#! /usr/bin/env sh
+
+XDG_SESSION_TYPE=wayland
+export XDG_SESSION_TYPE
+
+XDG_SESSION_DESKTOP=river
+export XDG_SESSION_DESKTOP
+
+XDG_CURRENT_DESKTOP=river
+export XDG_CURRENT_DESKTOP
+
+MOZ_ENABLE_WAYLAND=1
+export MOZ_ENABLE_WAYLAND
+
+QT_QPA_PLAYFORM=wayland
+export QT_QPA_PLAYFORM
+
+SDL_VIDEODRIVER=wayland
+export SDL_VIDEODRIVER
+
+_JAVA_AWT_WM_NONREPARENTING=1
+export _JAVA_AWT_WM_NONREPARENTING
+
+XKB_DEFAULT_LAYOUT=mi
+export XKB_DEFAULT_LAYOUT
+
+# exec river
+exec systemd-cat --identifier=river river "$@"

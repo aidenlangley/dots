@@ -1,8 +1,12 @@
-# Basically just runs at TTY
 if status is-login
+    bass source ~/.profile
+    bass source ~/.bash_profile
 end
 
-# Any interactive shell spawned post-login
 if status is-interactive
-    starship init fish | source
+    # Source rust things
+    bass source ~/.cargo/env
+
+    # Switch on vi mode!
+    fish_vi_key_bindings
 end

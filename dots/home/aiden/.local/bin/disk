@@ -12,16 +12,16 @@ case $interval in
 esac
 
 while true; do
-  if [[ "$kind" = "space" ]]; then
-    stats=$(df -h | awk '/dev\/mapper\/luks/{print $4,$5}' | sed 's/\(.*\)%/\1/')
-    space_remaining=${stats[1]}
-    percent_free=${stats[2]}
-  fi
+	if [[ "$kind" = "space" ]]; then
+		stats=$(df -h | awk '/dev\/mapper\/luks/{print $4,$5}' | sed 's/\(.*\)%/\1/')
+		space_remaining=${stats[1]}
+		percent_free=${stats[2]}
+	fi
 
-  echo $stats
-  echo "space_remaining|int|$space_remaining"
-  echo "percent_free|range,0-100|$percent_free"
-  echo
+	echo "$stats"
+	echo "space_remaining|int|$space_remaining"
+	echo "percent_free|range,0-100|$percent_free"
+	echo
 
-  sleep "$interval"
+	sleep "$interval"
 done

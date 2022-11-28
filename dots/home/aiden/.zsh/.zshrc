@@ -62,3 +62,6 @@ source $ZIM_HOME/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # globalias expands aliases, excluding these:
 # GLOBALIAS_FILTER_VALUES=(ls grep)
+
+# starship this too!
+# eval "$(starship init zsh)"

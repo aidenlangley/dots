@@ -1,0 +1,17 @@
+# nedots
+
+Define your configuration files [(ne)dots] or directories in `.nedots.yml`, or
+in `.json` format if you'd prefer, and run `nedots sync` to pull in each of the
+entries & push them to a remote repository.
+
+Or if you've got some configuration that deserves its' own git repository,
+maybe a complex `nvim` or `zsh` configuration, then define the `git_repo` in
+config, and the repo will be added as a submodule.
+
+# Why?
+
+Dotfile repositories are generally used to share (or show off) your configuration,
+and so that you have a back-up of your settings for when you inevitably distro
+hop. This tool makes the process that much easier, and is very easy to configure.
+Just list the files or directories that you're interested in storing remotely,
+run a single command, and that's that.

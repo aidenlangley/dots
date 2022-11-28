@@ -1,1 +1,11 @@
-/usr/lib/systemd/user/pipewire-pulse.socket
+[Unit]
+Description=PipeWire PulseAudio
+ConditionUser=!root
+Conflicts=pulseaudio.socket
+
+[Socket]
+Priority=6
+ListenStream=%t/pulse/native
+
+[Install]
+WantedBy=sockets.target

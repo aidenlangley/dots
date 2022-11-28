@@ -12,8 +12,8 @@ zmodule input
 zmodule run-help
 
 # Productivity / Utility
-zmodule archive     # Utilities for managing archives
-zmodule asdf        # https://asdf-vm.com/
+zmodule archive # Utilities for managing archives
+# zmodule asdf        # https://asdf-vm.com/
 zmodule fzf         # Improves fzf
 zmodule git         # Adds useful git aliases & functions
 zmodule magic-enter # https://github.com/zimfw/magic-enter
