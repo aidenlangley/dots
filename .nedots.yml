@@ -17,10 +17,6 @@ backup_dir: "backups"
 # be read/write address for seamless integration.
 remote: "git@git.sr.ht:~nedia/nedots"
 
-# Enabling this will create symlinks in `root/syms` so that if you so choose
-# you can edit your files [(ne)dots] from a single workspace.
-symlink: false
-
 # Configuration files (or folders) are defined here. These files (or folders)
 # are copied into the `root/dots` directory.
 #
