@@ -1,3 +1,3 @@
 [submodule "dots/home/.config/nvim"]
-	path = dots/home/.config/nvim
+	path = dots/home/aiden/.config/nvim
 	url = https://git.sr.ht/~nedia/config.nvim
