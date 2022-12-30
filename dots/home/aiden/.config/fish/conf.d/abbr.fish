@@ -1,3 +1,6 @@
+# Clear existing abbreviations
+
+
 # Shortcut abbr to include -a/--add
 set abbr (abbr -a)
 
@@ -26,6 +29,7 @@ abbr ca bat
 abbr cht "cht.sh"
 abbr e "$EDITOR"
 abbr lg lazygit
+abbr ne nedots
 abbr nv nvim
 abbr py python
 abbr to touch
@@ -51,5 +55,10 @@ abbr nla "nu -c 'ls -a'"
 abbr nll "nu -c 'ls -l'"
 
 # git
+abbr ga "git add"
+abbr gb "git branch"
+abbr gc "git commit -m"
 abbr gco "git checkout"
-abbr gst "git status"
+abbr gp "git pull"
+abbr gP "git push"
+abbr gs "git status"

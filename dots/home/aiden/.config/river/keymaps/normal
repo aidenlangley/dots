@@ -7,7 +7,6 @@ riverctl map -repeat normal Super+Control Left send-layout-cmd rivertile "main-r
 riverctl map -repeat normal Super+Control Right send-layout-cmd rivertile "main-ratio +0.01"
 riverctl map normal Alt Tab focus-view next
 riverctl map normal Alt+Shift Tab focus-view next
-riverctl map normal Control P spawn ulauncher-toggle
 riverctl map normal Super B spawn firefox
 riverctl map normal Super Comma focus-output previous
 riverctl map normal Super E spawn 'kitty -e ranger'
@@ -17,7 +16,8 @@ riverctl map normal Super H focus-view previous
 riverctl map normal Super L focus-view next
 riverctl map normal Super Left focus-view previous
 riverctl map normal Super Minus send-layout-cmd rivertile "main-count -1"
-riverctl map normal Super P set-view-tags "$ALL_TAGS"
+riverctl map normal Super P spawn ulauncher-toggle
+# riverctl map normal Super P set-view-tags "$ALL_TAGS"
 riverctl map normal Super Period focus-output next
 riverctl map normal Super Return spawn kitty
 riverctl map normal Super Right focus-view next
