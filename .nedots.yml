@@ -1,82 +1,43 @@
----
-
-# All paths are relative to $HOME, unless they start with a forward slash.
-# All values can be overridden by env variables prefixed `NEDOTS_`.
-
-# The root directory - files [(ne)dots] are stored here.
-# Setting NEDOTS_ROOT will also set this value.
-root: ".nedots"
-
-# Home of configuration files [(ne)dots], `root/dots`.
-dots_dir: "dots"
-
-# Where to store backups.
-backup_dir: "backups"
-
-# Remote repository where you would like to store your files [(ne)dots]. Must
-# be read/write address for seamless integration.
-remote: "git@git.sr.ht:~nedia/nedots"
-
-# Configuration files (or folders) are defined here. These files (or folders)
-# are copied into the `root/dots` directory.
-#
-# .gitignore rules are respected in any directories specified here.
+root: /home/aiden/.nedots
+dots_dir: /home/aiden/.nedots/dots
+backup_dir: /home/aiden/.nedots/backups
+remote: git@git.sr.ht:~nedia/nedots
 sources:
-  - ".config/bspwm"
-  - ".config/fish"
-  - ".config/fontconfig"
-  - ".config/kanshi"
-  - ".config/kitty"
-  - ".config/river"
-  - ".config/swaylock"
-  - ".config/systemd"
-  - ".config/wired"
-  - ".config/yambar"
-  - ".gitconfig"
-  - ".gtkrc-2.0"
-  - ".local/bin"
-  - ".profile"
-  - ".zsh"
-  - ".zshenv"
-  - "/etc/fstab"
-  - "/etc/greetd/config.toml"
-  - "/etc/hostname"
-  - "/etc/locale.conf"
-  - "/etc/pacman.conf"
-  - "/etc/pacman.d/mirrorlist"
-  - "/etc/sysctl.d/99-swappiness.conf"
-  - "/etc/systemd/logind.conf"
-  - "/etc/systemd/sleep.conf"
-  - "/etc/systemd/system/hibernate@aiden.service"
-  - "/etc/systemd/system/resume@aiden.service"
-  - "/etc/systemd/system/suspend@aiden.service"
-  - "/usr/local/bin/river-run"
-  - "Wallpapers"
-
-# Configuration may sometimes be managed by its own git repository. Here we can
-# define submodules - the remote URL is the read/write git repository address,
-# e.g. git@github.com/repo, and path where the configuration files live on your
-# system.
-#
-# When submodules are updated, instead of copying files to `root/dots`, we sync
-# the files in their source directory, and `git update` submodules before
-# syncing `root`.
+- .config/bspwm
+- .config/fish
+- .config/fontconfig
+- .config/kanshi
+- .config/kitty
+- .config/river
+- .config/swaylock
+- .config/systemd
+- .config/wired
+- .config/yambar
+- .gitconfig
+- .gtkrc-2.0
+- .local/bin
+- .profile
+- .zsh
+- .zshenv
+- /etc/fstab
+- /etc/greetd/config.toml
+- /etc/hostname
+- /etc/locale.conf
+- /etc/pacman.conf
+- /etc/pacman.d/mirrorlist
+- /etc/sysctl.d/99-swappiness.conf
+- /etc/systemd/logind.conf
+- /etc/systemd/sleep.conf
+- /etc/systemd/system/hibernate@aiden.service
+- /etc/systemd/system/resume@aiden.service
+- /etc/systemd/system/suspend@aiden.service
+- /usr/local/bin/river-run
+- Wallpapers
+- test
 git_repos:
-  - repo:
-    id: "nvim"
-    remote: "git@git.sr.ht:~nedia/config.nvim"
-    path: ".config/nvim"
-
-# You may also specify systemd services that will be started via
-# `systemctl --user enable <service> --now` during `install` commands.
+- id: nvim
+  remote: git@git.sr.ht:~nedia/config.nvim
+  path: .config/nvim
 systemd_services:
-  # - "bar"
-  # - "bar.laptop"
-  # - "gammastep"
-  # - "idle"
-  # - "kanshi"
-  # - "launcher"
-  - "pipewire"
-  # - "thunar"
-  # - "wired"
-  - "wireplumber"
+- pipewire
+- wireplumber
