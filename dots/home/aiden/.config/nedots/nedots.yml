@@ -1,4 +1,4 @@
-remote: git@git.sr.ht:~nedia/nedots.rs
+remote: git@git.sr.ht:~nedia/nedots
 sources:
   - .config/bspwm
   - .config/fish
