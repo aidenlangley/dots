@@ -1,13 +1,11 @@
-root: .nedots
-dots_dir: dots
-backup_dir: backups
-remote: git@git.sr.ht:~nedia/nedots
+remote: git@git.sr.ht:~nedia/nedots.rs
 sources:
   - .config/bspwm
   - .config/fish
   - .config/fontconfig
   - .config/kanshi
   - .config/kitty
+  - .config/nedots
   - .config/river
   - .config/swaylock
   - .config/systemd
