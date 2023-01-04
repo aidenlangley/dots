@@ -1,43 +1,39 @@
-root: /home/aiden/.nedots
-dots_dir: /home/aiden/.nedots/dots
-backup_dir: /home/aiden/.nedots/backups
+root: .nedots
+dots_dir: dots
+backup_dir: backups
 remote: git@git.sr.ht:~nedia/nedots
 sources:
-- .config/bspwm
-- .config/fish
-- .config/fontconfig
-- .config/kanshi
-- .config/kitty
-- .config/river
-- .config/swaylock
-- .config/systemd
-- .config/wired
-- .config/yambar
-- .gitconfig
-- .gtkrc-2.0
-- .local/bin
-- .profile
-- .zsh
-- .zshenv
-- /etc/fstab
-- /etc/greetd/config.toml
-- /etc/hostname
-- /etc/locale.conf
-- /etc/pacman.conf
-- /etc/pacman.d/mirrorlist
-- /etc/sysctl.d/99-swappiness.conf
-- /etc/systemd/logind.conf
-- /etc/systemd/sleep.conf
-- /etc/systemd/system/hibernate@aiden.service
-- /etc/systemd/system/resume@aiden.service
-- /etc/systemd/system/suspend@aiden.service
-- /usr/local/bin/river-run
-- Wallpapers
-- test
+  - .config/bspwm
+  - .config/fish
+  - .config/fontconfig
+  - .config/kanshi
+  - .config/kitty
+  - .config/river
+  - .config/swaylock
+  - .config/systemd
+  - .config/wired
+  - .config/yambar
+  - .gitconfig
+  - .gtkrc-2.0
+  - .local/bin
+  - .profile
+  - .zsh
+  - .zshenv
+  - /etc/fstab
+  - /etc/greetd/config.toml
+  - /etc/hostname
+  - /etc/locale.conf
+  - /etc/pacman.conf
+  - /etc/pacman.d/mirrorlist
+  - /etc/sysctl.d/99-swappiness.conf
+  - /etc/systemd/logind.conf
+  - /etc/systemd/sleep.conf
+  - /etc/systemd/system/hibernate@aiden.service
+  - /etc/systemd/system/resume@aiden.service
+  - /etc/systemd/system/suspend@aiden.service
+  - /usr/local/bin/river-run
+  - Wallpapers
 git_repos:
-- id: nvim
-  remote: git@git.sr.ht:~nedia/config.nvim
-  path: .config/nvim
-systemd_services:
-- pipewire
-- wireplumber
+  - id: nvim
+    remote: git@git.sr.ht:~nedia/config.nvim
+    path: .config/nvim
