@@ -3,10 +3,11 @@
 ################################################################################
 
 # With:       reflector @/etc/xdg/reflector/reflector.conf
-# When:       2022-12-30 15:36:11 UTC
+# When:       2023-01-04 02:30:59 UTC
 # From:       https://archlinux.org/mirrors/status/json/
-# Retrieved:  2022-12-30 15:36:11 UTC
-# Last Check: 2022-12-30 15:02:58 UTC
+# Retrieved:  2023-01-04 02:30:59 UTC
+# Last Check: 2023-01-04 02:06:51 UTC
 
+Server = https://sydney.mirror.pkgbuild.com/$repo/os/$arch
+Server = https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch
 Server = https://mirror.fsmg.org.nz/archlinux/$repo/os/$arch
-Server = https://arch.lucassymons.net/$repo/os/$arch
