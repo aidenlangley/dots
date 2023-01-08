@@ -32,6 +32,6 @@ sources:
   - /usr/local/bin/river-run
   - Wallpapers
 git_repos:
-  - id: nvim
+  - repo:
     remote: git@git.sr.ht:~nedia/config.nvim
     path: .config/nvim
