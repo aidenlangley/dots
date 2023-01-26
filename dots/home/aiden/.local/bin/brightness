@@ -1,0 +1,22 @@
+#! /usr/bin/env sh
+
+notify() {
+	notify-send -a brightness -u low \
+		-h string:image-path:/usr/share/icons/Qogir-dark/24/panel/xfpm-brightness-lcd.svg \
+		-h string:wired-tag:volume \
+		"Brightness: $(printf "%.0f" "$(light)")%" "$1"
+}
+
+cmd=$1
+increment=$2
+
+case "$cmd" in
+'up')
+	light -A "$increment"
+	notify "Increased backlight brightness"
+	;;
+'down')
+	light -U "$increment"
+	notify "Decreased backlight brightness"
+	;;
+esac

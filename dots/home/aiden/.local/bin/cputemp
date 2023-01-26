@@ -1,17 +1,12 @@
 #! /usr/bin/env sh
 
-interval=$1
-
-case "$interval" in
+case "$1" in
 '' | *[!0-9]*)
 	echo "Interval must be an integer"
 	exit 1
 	;;
 *) ;;
 esac
-
-echo "temp|int|30"
-echo
 
 while true; do
 	temp=$(
@@ -23,10 +18,8 @@ while true; do
 		)"
 	)
 
-	if test "$temp" -ne 0; then
-		echo "temp|int|$temp"
-		echo
-	fi
+	echo "temp|int|$temp"
+	echo
 
-	sleep "$interval"
+	sleep "$1"
 done

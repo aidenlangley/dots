@@ -13,4 +13,6 @@ fi
 riverctl enter-mode "$1"
 echo "$1" >/tmp/.river-mode
 
-notify-send -a river -u low "Mode: $1" "Mode has been switched to $1"
+icon=/usr/share/icons/Qogir/scalable/apps/switchuser.svg
+notify-send -a river -u low -h string:image-path:"$icon" \
+	"Mode Switch" "Entered $1 mode." --hint="string:wired-tag:tag_name"

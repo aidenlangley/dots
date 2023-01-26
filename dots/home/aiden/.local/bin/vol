@@ -1,21 +1,33 @@
 #! /usr/bin/env sh
 
-cmd=$1
+get_vol() {
+	pactl get-sink-volume @DEFAULT_SINK@ |
+		awk '/front-left/{print $5}' |
+		sed 's/\(.*\)%/\1/'
+}
 
-# Initial state.
-echo "vol|int|0"
-echo "mute|bool|false"
-echo
+notify() {
+	notify-send -a volume -u low \
+		-h string:image-path:/usr/share/icons/Qogir-dark/24/panel/rhythmbox-indicator.svg \
+		-h string:wired-tag:volume \
+		"Volume: $(get_vol)%" "$1"
+}
+
+cmd=$1
+increment=$2
 
 case "$cmd" in
 'toggle')
 	pactl set-sink-mute @DEFAULT_SINK@ toggle
+	notify "Toggled mute"
 	;;
 'up')
-	pactl set-sink-volume @DEFAULT_SINK@ +1%
+	pactl set-sink-volume @DEFAULT_SINK@ "+$increment%"
+	notify "Increased volume"
 	;;
 'down')
-	pactl set-sink-volume @DEFAULT_SINK@ -1%
+	pactl set-sink-volume @DEFAULT_SINK@ "-$increment%"
+	notify "Decreased volume"
 	;;
 '' | *)
 	muted=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '/Mute/{print $2}')
@@ -24,13 +36,7 @@ case "$cmd" in
 		echo "mute|bool|true"
 		echo
 	else
-		vol=$(
-			pactl get-sink-volume @DEFAULT_SINK@ |
-				awk '/front-left/{print $5}' |
-				sed 's/\(.*\)%/\1/'
-		)
-
-		echo "vol|int|$vol"
+		echo "vol|int|$(get_vol)"
 		echo "mute|bool|false"
 		echo
 	fi

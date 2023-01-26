@@ -408,6 +408,8 @@ bar:
         poll-interval: *net_poll_interval
         content:
           map:
+            on-click:
+              right: nm-connection-editor
             conditions:
               ~carrier: {empty: {}}
               carrier:
@@ -427,13 +429,10 @@ bar:
               text: *backlight_text
               margin: *spacing
               on-click:
-                left: |
-                  systemctl --user stop idle \
-                  && notify-send 'Idle Service Stopped' \
-                  'Screen will no longer lock after a period of inactivity'
+                left: "systemctl --user stop idle"
                 right: "systemctl --user start idle"
-                wheel-up: "brightnessctl set +5%"
-                wheel-down: "brightnessctl set 5%-"
+                wheel-up: "/home/aiden/.local/bin/brightness up 1"
+                wheel-down: "/home/aiden/.local/bin/brightness down 1"
           - string: {text: "盛", font: *symbols}
 
     - script:
@@ -444,8 +443,8 @@ bar:
             on-click:
               left: "/home/aiden/.local/bin/vol toggle"
               right: "pavucontrol"
-              wheel-up: "/home/aiden/.local/bin/vol up"
-              wheel-down: "/home/aiden/.local/bin/vol down"
+              wheel-up: "/home/aiden/.local/bin/vol up 1"
+              wheel-down: "/home/aiden/.local/bin/vol down 1"
             default:
               ramp:
                 tag: vol

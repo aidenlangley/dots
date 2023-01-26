@@ -7,5 +7,5 @@ PartOf=graphical-session.target
 [Service]
 Type=notify
 ExecStart=/usr/bin/notify-send -a systemd -u critical \
-  "Service Failure: %i" \
-  "`%i.service` has failed - check your journal for more information."
+  -h string:image-path:/usr/share/icons/Qogir/scalable/apps/system-error.svg \
+  "Service Failure" "%i has failed." --hint="string:wired-tag:tag_name"

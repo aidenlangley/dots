@@ -14,3 +14,9 @@ ExecStart=/usr/bin/swayidle -w \
     before-sleep 'playerctl pause' \
     before-sleep 'waylock-run'
 Restart=always
+
+# Send a notification when this service stops, since our device will no longer
+# lock automatically.
+ExecStopPost=/usr/bin/notify-send -a systemd -u low \
+  -h string:image-path:/usr/share/icons/Qogir-dark/scalable/devices/laptop.svg \
+  'Idle Service Stopped' 'Device will no longer lock after a period of inactivity'

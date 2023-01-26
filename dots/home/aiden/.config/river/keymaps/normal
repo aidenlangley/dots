@@ -67,9 +67,9 @@ riverctl map passthrough Super F11 spawn 'river-enter-mode normal'
 
 # Enable these mappings when locked as well in normal mode.
 for mode in normal locked; do
-	riverctl map -repeat $mode None XF86AudioRaiseVolume spawn "pactl set-sink-volume @DEFAULT_SINK@ +1%"
-	riverctl map -repeat $mode None XF86AudioLowerVolume spawn "pactl set-sink-volume @DEFAULT_SINK@ -1%"
-	riverctl map $mode None XF86AudioMute spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+	riverctl map -repeat $mode None XF86AudioRaiseVolume spawn 'vol up 1'
+	riverctl map -repeat $mode None XF86AudioLowerVolume spawn 'vol down 1'
+	riverctl map $mode None XF86AudioMute spawn 'vol toggle'
 	riverctl map $mode None XF86AudioMicMute spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
 
 	riverctl map $mode None XF86AudioPlay spawn "playerctl play-pause"
@@ -77,8 +77,8 @@ for mode in normal locked; do
 	riverctl map $mode None XF86AudioNext spawn "playerctl next"
 	riverctl map $mode None XF86AudioPrev spawn "playerctl previous"
 
-	riverctl map -repeat $mode None XF86MonBrightnessUp spawn "brightnessctl set +1%+"
-	riverctl map -repeat $mode None XF86MonBrightnessDown spawn "brightnessctl set 1%-"
+	riverctl map -repeat $mode None XF86MonBrightnessUp spawn 'brightness up 1'
+	riverctl map -repeat $mode None XF86MonBrightnessDown spawn 'brightness down 1'
 done
 
 # Utilities.
