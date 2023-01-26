@@ -5,10 +5,12 @@ Documentation=man:swayidle(1)
 After=graphical-session-pre.target
 PartOf=graphical-session.target
 
+OnFailure=notify-err@%n
+
 [Service]
 ExecStart=/usr/bin/swayidle -w \
-    timeout 300 'swaylock -f' \
-    lock 'swaylock -f' \
+    timeout 300 'waylock-run' \
+    lock 'waylock-run' \
     before-sleep 'playerctl pause' \
-    before-sleep 'swaylock -f'
+    before-sleep 'waylock-run'
 Restart=always

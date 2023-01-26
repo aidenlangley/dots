@@ -22,11 +22,8 @@ margin: &margin 12
 
 # Network
 net_poll_interval: &net_poll_interval 1
-dl_speed: &dl_speed "{dl-speed:mb}:{up-speed:mb} Mbps"
-net_down: &net_down {text: "", font: *symbols, foreground: *light}
 
 bar:
-  monitor: "HDMI-A-1"
   location: "top"
   height: 32
   spacing: *spacing
@@ -43,79 +40,70 @@ bar:
     - river:
         anchors:
           - padding: &river_padding 12
+          - base: &river_base
+              default: {string: {text: "{id}", margin: *river_padding}}
+              conditions:
+                id == 30:
+                  - string:
+                      text: "󰈙"
+                      font: *symbols
+                      margin: *river_padding
+                # Scratch (terminal)
+                id == 31:
+                  - string:
+                      text: ""
+                      font: *symbols
+                      margin: *river_padding
+                # Sticky
+                # id == 32: {string: {text: "", margin: *river_padding}}
+                id == 32: {empty: {}}
         content:
           map:
+            on-click:
+              left: sh -c "riverctl set-focused-tags $((1 << ({id} - 1)))"
+              right: sh -c "riverctl toggle-focused-tags $((1 << ({id} -1)))"
             default: {empty: {}}
             conditions:
               state == "urgent":
-                - string:
-                    text: "{id}"
-                    font: *bold
-                    foreground: *bg
-                    deco: {background: {color: *urgent}}
-                    margin: *river_padding
+                map:
+                  <<: *river_base
+                  font: *bold
+                  foreground: *bg
+                  deco: {background: {color: *urgent}}
               state == "focused":
-                - string:
-                    text: "{id}"
-                    font: *bold
-                    foreground: *bg
-                    deco: {background: {color: *fg}}
-                    margin: *river_padding
+                map:
+                  <<: *river_base
+                  font: *bold
+                  foreground: *bg
+                  deco: {background: {color: *fg}}
               state == "unfocused":
-                - string:
-                    text: "{id}"
-                    deco: {background: {color: *border}}
-                    margin: *river_padding
+                map:
+                  <<: *river_base
+                  deco: {background: {color: *border}}
               occupied:
+                map:
+                  <<: *river_base
+
+    - script:
+        path: /home/aiden/.local/bin/river-watch-mode
+        content:
+          map:
+            on-click:
+              left: /home/aiden/.local/bin/river-enter-mode normal
+            default: {empty: {}}
+            conditions:
+              mode == "float":
                 - string:
-                    text: "{id}"
-                    margin: *river_padding
-
-    # - script:
-    #     path: "/home/aiden/.local/bin/disk"
-
-    # - script:
-    #     path: "/home/aiden/.local/bin/cpu"
-    #     args: [1]
-    #     anchors:
-    #       - icon: &cpu_icon "龍"
-    #       - usage: &cpu_usage "{cpu}%"
-    #     content:
-    #       map:
-    #         margin: *spacing
-    #         default:
-    #           - string: {text: *cpu_icon, font: *symbols, margin: *spacing}
-    #           - string: {text: *cpu_usage}
-    #         conditions:
-    #           cpu < 20:
-    #             - string:
-    #                 text: *cpu_icon
-    #                 font: *symbols
-    #                 foreground: *light
-    #                 margin: *spacing
-    #             - string:
-    #                 text: *cpu_usage
-    #                 foreground: *light
-    #           cpu >= 60:
-    #             - string:
-    #                 text: *cpu_icon
-    #                 font: *symbols
-    #                 foreground: *highlight
-    #                 margin: *spacing
-    #             - string:
-    #                 text: *cpu_usage
-    #                 font: *bold
-    #                 foreground: *highlight
-    #           cpu >= 80:
-    #             - string:
-    #                 text: *cpu_icon
-    #                 font: *symbols
-    #                 foreground: *urgent
-    #                 margin: *spacing
-    #             - string:
-    #                 text: *cpu_usage
-    #                 font: *bold
-    #                 foreground: *urgent
+                    text: "FLOAT"
+                    font: *bold
+                    foreground: *highlight
+                    margin: *spacing
+              mode == "passthrough":
+                - string:
+                    text: "PASSTHROUGH"
+                    font: *bold
+                    foreground: *urgent
+                    margin: *spacing
 
     - mem:
         interval: 1000
@@ -184,50 +172,6 @@ bar:
                 - string:
                     text: *mem_denom
                     foreground: *light
-
-    # - script:
-    #     path: "/home/aiden/.local/bin/mem"
-    #     args: ["mem", 8]
-    #     anchors:
-    #       - icon: &mem_icon ""
-    #       - used: &mem_used "{used} MiB"
-    #     content:
-    #       map:
-    #         margin: *spacing
-    #         default:
-    #           - string: {text: *mem_icon, font: *symbols, margin: *spacing}
-    #           - string: {text: *mem_used}
-    #         conditions:
-    #           percent < 20:
-    #             - string:
-    #                 text: *mem_icon
-    #                 font: *symbols
-    #                 foreground: *light
-    #                 margin: *spacing
-    #             - string:
-    #                 text: *mem_used
-    #                 font: *bold
-    #                 foreground: *light
-    #           percent >= 60:
-    #             - string:
-    #                 text: *mem_icon
-    #                 font: *symbols
-    #                 foreground: *highlight
-    #                 margin: *spacing
-    #             - string:
-    #                 text: *mem_used
-    #                 font: *bold
-    #                 foreground: *highlight
-    #           percent >= 80:
-    #             - string:
-    #                 text: *mem_icon
-    #                 font: *symbols
-    #                 foreground: *urgent
-    #                 margin: *spacing
-    #             - string:
-    #                 text: *mem_used
-    #                 font: *bold
-    #                 foreground: *urgent
 
     - script:
         path: "/home/aiden/.local/bin/mem"
@@ -455,10 +399,9 @@ bar:
               carrier:
                 map:
                   default:
-                    - string: {text: *dl_speed, margin: *spacing}
-                    - string: {text: "", font: *symbols}
+                    - string: {text: "󰌘", font: *symbols}
                   conditions:
-                    state == "down": {string: *net_down}
+                    state == "down": {string: {text: "x"}}
 
     - network:
         name: "wlp3s0"
@@ -471,13 +414,9 @@ bar:
                 map:
                   default:
                     - string: {text: "{ssid}", margin: *spacing}
-                    # - string:
-                    #     text: *dl_speed
-                    #     foreground: *light
-                    #     right-margin: *spacing
                     - string: {text: "﬉", font: *symbols}
                   conditions:
-                    state == "down": {string: *net_down}
+                    state == "down": {string: {text: "x"}}
 
     - backlight:
         name: "amdgpu_bl0"
@@ -488,10 +427,13 @@ bar:
               text: *backlight_text
               margin: *spacing
               on-click:
-                left: "systemctl --user stop idle"
+                left: |
+                  systemctl --user stop idle \
+                  && notify-send 'Idle Service Stopped' \
+                  'Screen will no longer lock after a period of inactivity'
                 right: "systemctl --user start idle"
-                wheel-up: "light -A 1"
-                wheel-down: "light -U 1"
+                wheel-up: "brightnessctl set +5%"
+                wheel-down: "brightnessctl set 5%-"
           - string: {text: "盛", font: *symbols}
 
     - script:
@@ -532,15 +474,15 @@ bar:
                     items:
                       - string:
                           text: "muted"
-                          foreground: *border
+                          foreground: *light
                           margin: *spacing
                       - string:
                           text: "婢"
                           font: *symbols
-                          foreground: *border
+                          foreground: *light
 
     - clock:
-        date-format: "%a"
+        date-format: "%a %d"
         time-format: "%H:%M:%S"
         content:
           - string: {text: "{date}"}
@@ -550,7 +492,7 @@ bar:
 
     - battery:
         name: "BAT0"
-        poll-interval: 30
+        poll-interval: 10
         anchors:
           capacity: &capacity "{capacity}%"
           estimate: &estimate "{estimate}"

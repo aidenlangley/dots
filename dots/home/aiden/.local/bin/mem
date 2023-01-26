@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#! /usr/bin/env sh
 
 mem=$1
 interval=$2
@@ -11,8 +11,13 @@ case $interval in
 *) ;;
 esac
 
+# Initial state.
+echo "used|int|0"
+echo "percent|int|0"
+echo
+
 while true; do
-	if [[ "$mem" = "swap" ]]; then
+	if test "$mem" = "swap"; then
 		total=$(awk '/SwapTotal/{print $(NF-1)}' /proc/meminfo)
 		free=$(awk '/SwapFree/{print $(NF-1)}' /proc/meminfo)
 		used_kb=$((total - free))
@@ -24,7 +29,7 @@ while true; do
 
 	kb_to_mib=0.00095367431640625
 	percent=$((100 * used_kb / total))
-	used=$(qalc -t "'$used_kb * $kb_to_mib'")
+	used=$(qalc -t "'$used_kb x $kb_to_mib'")
 
 	echo "used|int|$(printf "%.0f" "$used")"
 	echo "percent|int|$(printf "%.0f" "$percent")"

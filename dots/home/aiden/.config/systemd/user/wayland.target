@@ -3,5 +3,18 @@ Description=Wayland target
 
 After=graphical-session-pre.target
 BindsTo=graphical-session.target
-Upholds=kanshi.service bar.service launcher.service thunar.service wired.service
-Wants=graphical-session-pre.target gammastep.service gtk.service idle.service
+
+Upholds=kanshi.service
+Upholds=bar.service
+Upholds=launcher.service
+Upholds=thunar.service
+Upholds=wired.service
+Upholds=geoclue-fix.service
+
+Wants=graphical-session-pre.target
+Wants=gammastep.service
+Wants=gtk.service
+Wants=idle.service
+Wants=swww.service
+
+OnFailure=notify-err@%n

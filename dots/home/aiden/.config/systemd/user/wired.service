@@ -3,6 +3,8 @@ Description=Wired Notification Daemon
 Documentation=https://github.com/Toqozz/wired-notify
 After=graphical.target
 
+OnFailure=notify-err@%n
+
 [Service]
 Type=dbus
 BusName=org.freedesktop.Notifications

@@ -1,64 +1,61 @@
-# Clear existing abbreviations
-
-
-# Shortcut abbr to include -a/--add
-set abbr (abbr -a)
-
 set journal "journalctl -xeb"
-abbr j "$journal"
-abbr jf "$journal -f"
+abbr -a j "$journal"
+abbr -a jf "$journal -f"
 
-abbr cp "cp -vr"
-abbr del "rm -vr"
-abbr delf "rm -vrf"
-abbr mk "mkdir -p" # Also mkcd, see function
-abbr mv "mv -v"
-abbr rm "gio trash"
+abbr -a cp "cp -vr"
+abbr -a del "rm -vr"
+abbr -a delf "rm -vrf"
+abbr -a mk "mkdir -p" # Also mkcd, see function
+abbr -a mv "mv -v"
+abbr -a rm "gio trash"
 
 # ls aliased to exa
-abbr la "exa -a"
-abbr las "exa -als"
-abbr lad "exa -aT -L"
-abbr ll "exa -l"
-abbr lls "exa -ls"
-abbr lld "exa -lT -L"
-abbr ls exa
-abbr lsd "exa -T -L"
+abbr -a la "exa -a"
+abbr -a las "exa -als"
+abbr -a lad "exa -aT -L"
+abbr -a ll "exa -l"
+abbr -a lls "exa -ls"
+abbr -a lld "exa -lT -L"
+abbr -a ls exa
+abbr -a lsd "exa -T -L"
 
-abbr ca bat
-abbr cht "cht.sh"
-abbr e "$EDITOR"
-abbr lg lazygit
-abbr ne nedots
-abbr nv nvim
-abbr py python
-abbr to touch
+abbr -a ca bat
+abbr -a cht "cht.sh"
+abbr -a e "$EDITOR"
+abbr -a lg lazygit
+abbr -a ne nedots
+abbr -a nv nvim
+abbr -a py python
+abbr -a to touch
 
-abbr count "wc -l"
-abbr alias "abbr -l"
-abbr env "env | less"
+abbr -a count "wc -l"
+abbr -a alias "abbr -l"
+abbr -a env "env | less"
 
 set sy systemctl
 set syu "$sy --user"
-abbr sy "$sy"
-abbr sys "$syu"
-abbr syd "$syu" daemon-reload
-abbr syf "$syu" "list-units --failed"
-abbr syr "$syu" restart
-abbr syt "$syu" status
-abbr pow "$sy" poweroff
-abbr reb "$sy" reboot
+abbr -a sy "$sy"
+abbr -a sys "$syu"
+abbr -a syd "$syu" daemon-reload
+abbr -a syf "$syu" "list-units --failed"
+abbr -a syr "$syu" restart
+abbr -a syt "$syu" status
+abbr -a pow "$sy" poweroff
+abbr -a reb "$sy" reboot
 
 # nu shell passthroughs
-abbr nls "nu -c ls"
-abbr nla "nu -c 'ls -a'"
-abbr nll "nu -c 'ls -l'"
+abbr -a nls "nu -c ls"
+abbr -a nla "nu -c 'ls -a'"
+abbr -a nll "nu -c 'ls -l'"
 
 # git
-abbr ga "git add"
-abbr gb "git branch"
-abbr gc "git commit -m"
-abbr gco "git checkout"
-abbr gp "git pull"
-abbr gP "git push"
-abbr gs "git status"
+abbr -a ga "git add"
+abbr -a gb "git branch"
+abbr -a gc "git commit -m"
+abbr -a gco "git checkout"
+abbr -a gp "git pull"
+abbr -a gP "git push"
+abbr -a gs "git status"
+
+# wifi
+abbr -a wifi "nmcli device wifi"

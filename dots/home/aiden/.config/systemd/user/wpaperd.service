@@ -4,6 +4,8 @@ Description=wpaperd, wallpaper manager
 After=graphical-session-pre.target
 PartOf=graphical-session.target
 
+OnFailure=notify-err@%n
+
 [Service]
 ExecStart=/usr/bin/wpaperd -n
 Restart=on-failure

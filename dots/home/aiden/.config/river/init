@@ -4,12 +4,14 @@
 ALL_TAGS="$(qalc -t "(2 ^ 32) - 1")"
 export ALL_TAGS
 
-source "$HOME/.config/river/keymaps/normal"
-source "$HOME/.config/river/keymaps/float"
+source "$HOME"/.config/river/keymaps/normal
+source "$HOME"/.config/river/keymaps/float
+# source "$HOME"/.config/river/keymaps/tags/docs
+# source "$HOME"/.config/river/keymaps/tags/scratch
 
-source "$HOME/.config/river/inputs"
-source "$HOME/.config/river/rules"
-source "$HOME/.config/river/config"
+source "$HOME"/.config/river/inputs
+source "$HOME"/.config/river/rules
+source "$HOME"/.config/river/config
 
 # GTK hangs without this
 dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY

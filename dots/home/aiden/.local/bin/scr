@@ -1,0 +1,4 @@
+#! /usr/bin/env sh
+
+grim - | swappy -f -
+notify-send "grim" "Screen captured"

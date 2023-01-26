@@ -4,6 +4,8 @@ Description=Configure GTK theme, icons & fonts
 After=graphical-session-pre.target
 PartOf=graphical-session.target
 
+OnFailure=notify-err@%n
+
 [Service]
 Environment=\
 SCHEMA=org.gnome.desktop.interface

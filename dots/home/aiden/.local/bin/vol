@@ -1,8 +1,13 @@
-#! /usr/bin/env bash
+#! /usr/bin/env sh
 
 cmd=$1
 
-case $cmd in
+# Initial state.
+echo "vol|int|0"
+echo "mute|bool|false"
+echo
+
+case "$cmd" in
 'toggle')
 	pactl set-sink-mute @DEFAULT_SINK@ toggle
 	;;
@@ -14,7 +19,7 @@ case $cmd in
 	;;
 '' | *)
 	muted=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '/Mute/{print $2}')
-	if [[ "$muted" = "yes" ]]; then
+	if test "$muted" = "yes"; then
 		echo "vol|int|0"
 		echo "mute|bool|true"
 		echo

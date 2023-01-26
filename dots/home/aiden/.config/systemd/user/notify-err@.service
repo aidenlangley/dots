@@ -1,0 +1,11 @@
+[Unit]
+Description=Notify user of systemd service errors
+
+After=graphical-session-pre.target
+PartOf=graphical-session.target
+
+[Service]
+Type=notify
+ExecStart=/usr/bin/notify-send -a systemd -u critical \
+  "Service Failure: %i" \
+  "`%i.service` has failed - check your journal for more information."

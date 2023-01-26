@@ -5,6 +5,8 @@ Documentation=https://ulauncher.io/
 After=graphical-session-pre.target
 PartOf=graphical-session.target
 
+OnFailure=notify-err@%n
+
 [Service]
 Type=simple
 Restart=always
