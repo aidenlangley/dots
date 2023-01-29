@@ -1,6 +1,7 @@
 remote: git@git.sr.ht:~nedia/nedots
 sources:
   - .config/bspwm
+  - .config/dunst
   - .config/fish
   - .config/fontconfig
   - .config/kanshi
