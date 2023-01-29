@@ -1,5 +1,5 @@
 [Unit]
-Description=swayidle
+Description=Idle management via swayidle
 Documentation=man:swayidle(1)
 
 After=graphical-session-pre.target

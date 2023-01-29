@@ -7,10 +7,12 @@ get_vol() {
 }
 
 notify() {
+	vol=$(get_vol)
 	notify-send -a volume -u low \
 		-h string:image-path:/usr/share/icons/Qogir-dark/24/panel/rhythmbox-indicator.svg \
 		-h string:wired-tag:volume \
-		"Volume: $(get_vol)%" "$1"
+		-h int:value:"$vol" -h string:x-canonical-private-synchronous:volume \
+		"$vol% Volume" "$1"
 }
 
 cmd=$1

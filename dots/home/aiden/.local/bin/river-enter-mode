@@ -13,6 +13,7 @@ fi
 riverctl enter-mode "$1"
 echo "$1" >/tmp/.river-mode
 
-icon=/usr/share/icons/Qogir/scalable/apps/switchuser.svg
+icon=/usr/share/icons/Qogir-dark/32/actions/screen-rotate-auto-on.svg
 notify-send -a river -u low -h string:image-path:"$icon" \
+	-h string:x-canonical-private-synchronous:river-mode \
 	"Mode Switch" "Entered $1 mode." --hint="string:wired-tag:tag_name"

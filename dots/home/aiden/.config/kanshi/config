@@ -2,7 +2,6 @@ profile solo {
   output eDP-1 enable
   exec systemctl --user restart bar
   exec systemctl --user stop bar.laptop
-  exec swww init
 }
 
 profile {
@@ -10,7 +9,6 @@ profile {
   output eDP-1 enable position 1920,0
   exec systemctl --user restart bar
   exec systemctl --user start bar.laptop
-  exec swww init
 }
 
 profile kyle_office {
@@ -18,5 +16,4 @@ profile kyle_office {
   output eDP-1 enable position 1920,0
   exec systemctl --user restart bar
   exec systemctl --user start bar.laptop
-  exec swww init
 }

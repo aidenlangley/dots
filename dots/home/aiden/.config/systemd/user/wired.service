@@ -1,5 +1,5 @@
 [Unit]
-Description=Wired Notification Daemon
+Description=Wired notification daemon
 Documentation=https://github.com/Toqozz/wired-notify
 After=graphical.target
 

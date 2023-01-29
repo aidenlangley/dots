@@ -11,4 +11,5 @@ riverctl focus-follows-cursor normal
 riverctl set-cursor-warp on-output-change
 riverctl set-repeat 50 300
 
+riverctl xcursor-theme Adwaita
 riverctl default-layout rivertile

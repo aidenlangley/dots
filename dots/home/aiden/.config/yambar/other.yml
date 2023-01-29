@@ -38,34 +38,49 @@ bar:
     - river:
         anchors:
           - padding: &river_padding 12
+          - base: &river_base
+              default: {string: {text: "{id}", margin: *river_padding}}
+              conditions:
+                id == 30:
+                  - string:
+                      text: "󰈙"
+                      font: *symbols
+                      margin: *river_padding
+                # Scratch (terminal)
+                id == 31:
+                  - string:
+                      text: ""
+                      font: *symbols
+                      margin: *river_padding
+                # Sticky
+                # id == 32: {string: {text: "", margin: *river_padding}}
+                id == 32: {empty: {}}
         content:
           map:
+            on-click:
+              left: sh -c "riverctl set-focused-tags $((1 << ({id} - 1)))"
+              right: sh -c "riverctl toggle-focused-tags $((1 << ({id} -1)))"
             default: {empty: {}}
             conditions:
               state == "urgent":
-                - string:
-                    text: "{id}"
-                    font: *bold
-                    foreground: *bg
-                    deco: {background: {color: *urgent}}
-                    margin: *river_padding
+                map:
+                  <<: *river_base
+                  font: *bold
+                  foreground: *bg
+                  deco: {background: {color: *urgent}}
               state == "focused":
-                - string:
-                    text: "{id}"
-                    font: *bold
-                    foreground: *bg
-                    deco: {background: {color: *fg}}
-                    margin: *river_padding
+                map:
+                  <<: *river_base
+                  font: *bold
+                  foreground: *bg
+                  deco: {background: {color: *fg}}
               state == "unfocused":
-                - string:
-                    text: "{id}"
-                    deco: {background: {color: *border}}
-                    margin: *river_padding
+                map:
+                  <<: *river_base
+                  deco: {background: {color: *border}}
               occupied:
-                - string:
-                    text: "{id}"
-                    margin: *river_padding
-
+                map:
+                  <<: *river_base
   center:
     # Displays window title
     - foreign-toplevel:

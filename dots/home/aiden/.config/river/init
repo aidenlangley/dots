@@ -13,6 +13,9 @@ source "$HOME"/.config/river/inputs
 source "$HOME"/.config/river/rules
 source "$HOME"/.config/river/config
 
+# Start wallpaper daemon
+swww init
+
 # GTK hangs without this
 dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY
 

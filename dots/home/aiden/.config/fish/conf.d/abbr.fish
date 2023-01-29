@@ -20,6 +20,7 @@ abbr -a ls exa
 abbr -a lsd "exa -T -L"
 
 abbr -a ca bat
+abbr -a cat bat
 abbr -a cht "cht.sh"
 abbr -a e "$EDITOR"
 abbr -a lg lazygit

@@ -8,7 +8,8 @@ Upholds=kanshi.service
 Upholds=bar.service
 Upholds=launcher.service
 Upholds=thunar.service
-Upholds=wired.service
+; Upholds=wired.service
+Upholds=polkit.service
 Upholds=geoclue-fix.service
 
 Wants=graphical-session-pre.target

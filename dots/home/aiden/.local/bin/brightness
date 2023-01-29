@@ -1,10 +1,12 @@
 #! /usr/bin/env sh
 
 notify() {
+	brightness=$(light)
 	notify-send -a brightness -u low \
 		-h string:image-path:/usr/share/icons/Qogir-dark/24/panel/xfpm-brightness-lcd.svg \
 		-h string:wired-tag:volume \
-		"Brightness: $(printf "%.0f" "$(light)")%" "$1"
+		-h int:value:"$brightness" -h string:x-canonical-private-synchronous:brightness \
+		"$(printf "%.0f" "$brightness")% Brightness" "$1"
 }
 
 cmd=$1

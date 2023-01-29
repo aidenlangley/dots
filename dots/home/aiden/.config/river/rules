@@ -8,6 +8,7 @@ riverctl float-filter-add app-id XEyes
 riverctl float-filter-add app-id nm-connection-editor
 riverctl float-filter-add app-id pavucontrol
 riverctl float-filter-add app-id ulauncher
+riverctl float-filter-add app-id blueman-manager
 
 # Remove decorations
 riverctl csd-filter-add app-id ulauncher

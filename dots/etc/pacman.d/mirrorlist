@@ -3,10 +3,10 @@
 ################################################################################
 
 # With:       reflector @/etc/xdg/reflector/reflector.conf
-# When:       2023-01-26 17:49:30 UTC
+# When:       2023-01-29 10:50:02 UTC
 # From:       https://archlinux.org/mirrors/status/json/
-# Retrieved:  2023-01-26 17:49:30 UTC
-# Last Check: 2023-01-26 17:43:48 UTC
+# Retrieved:  2023-01-29 10:50:02 UTC
+# Last Check: 2023-01-29 10:38:18 UTC
 
 Server = https://archlinux.uk.mirror.allworldit.com/archlinux/$repo/os/$arch
 Server = https://lon.mirror.rackspace.com/archlinux/$repo/os/$arch

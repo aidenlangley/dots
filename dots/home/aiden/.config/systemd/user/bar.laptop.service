@@ -1,5 +1,5 @@
 [Unit]
-Description=Status bar: yambar (laptop)
+Description=Status bar via yambar (laptop)
 Documentation=man:yambar(1)
 
 After=graphical-session-pre.target
