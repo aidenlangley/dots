@@ -5,8 +5,8 @@ profile solo {
 }
 
 profile {
-  output HDMI-A-1 enable position 0,0
-  output eDP-1 enable position 1920,0
+  output HDMI-A-1 enable position 1920,0
+  output eDP-1 enable position 0,0
   exec systemctl --user restart bar
   exec systemctl --user start bar.laptop
 }
