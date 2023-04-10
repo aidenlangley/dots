@@ -4,7 +4,8 @@ Description=Wayland target
 After=graphical-session-pre.target
 BindsTo=graphical-session.target
 
-Upholds=kanshi.service
+; Upholds=kanshi.service
+Upholds=way-displays.service
 Upholds=bar.service
 Upholds=launcher.service
 Upholds=thunar.service

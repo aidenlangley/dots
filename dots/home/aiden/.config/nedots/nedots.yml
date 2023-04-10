@@ -10,6 +10,7 @@ sources:
   - .config/river
   - .config/swaylock
   - .config/systemd
+  - .config/way-displays
   - .config/wired
   - .config/yambar
   - .gitconfig
