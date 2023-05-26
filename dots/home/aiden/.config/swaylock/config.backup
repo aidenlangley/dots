@@ -1,8 +1,0 @@
-ignore-empty-password
-no-unlock-indicator
-fade-in=1
-grace=3
-screenshots
-font="JetBrains Mono"
-font-size=12
-effect-blur=4x4
