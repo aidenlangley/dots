@@ -1,5 +1,6 @@
 lastupdatecheck: 0
 recentrepos:
+- /home/aiden/.local/share/nedots
 - /home/aiden/.config/nvim
 - /home/aiden/nedots
 startuppopupversion: 5

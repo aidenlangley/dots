@@ -1,0 +1,19 @@
+#! /usr/bin/env sh
+
+# `~/.local/bin/river-watch-mode` creates a named pipe for communicating mode
+# switches. This script wraps `riverctl enter-mode $mode` so that it can notify
+# `$RIVER_MODE_IPC` of changes to the current mode. Status bars or other
+# processes may listen and communicate to the user.
+
+if test $# -lt 1; then
+	echo "Usage: $0 <name of the river mode to switch to>"
+	exit 1
+fi
+
+riverctl enter-mode "$1"
+echo "$1" >/tmp/.river-mode
+
+icon=/usr/share/icons/Qogir-dark/32/actions/screen-rotate-auto-on.svg
+notify-send -a river -u low -h string:image-path:"$icon" \
+	-h string:x-canonical-private-synchronous:river-mode \
+	"Mode Switch" "Entered $1 mode." --hint="string:wired-tag:tag_name"

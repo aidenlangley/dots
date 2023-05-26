@@ -35,6 +35,7 @@ abbr -a pow "$sy" poweroff
 abbr -a reb "$sy" reboot
 
 # git
+abbr -a lg lazygit
 abbr -a ga "git add"
 abbr -a gb "git branch"
 abbr -a gc "git commit -m"
