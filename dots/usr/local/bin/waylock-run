@@ -1,0 +1,3 @@
+#! /usr/bin/env sh
+
+exec waylock -fork-on-lock -init-color 0x1d2021 -input-color 0x4c4c4c -fail-color 0xea6962

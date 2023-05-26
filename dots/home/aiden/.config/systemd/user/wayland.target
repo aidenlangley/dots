@@ -4,19 +4,16 @@ Description=Wayland target
 After=graphical-session-pre.target
 BindsTo=graphical-session.target
 
-; Upholds=kanshi.service
 Upholds=way-displays.service
-Upholds=bar.service
-Upholds=launcher.service
 Upholds=thunar.service
-; Upholds=wired.service
-Upholds=polkit.service
 Upholds=geoclue-fix.service
+Upholds=polkit-agent.service
 
 Wants=graphical-session-pre.target
 Wants=gammastep.service
 Wants=gtk.service
 Wants=idle.service
 Wants=swww.service
+Wants=pipewire-pulse.service
 
 OnFailure=notify-err@%n

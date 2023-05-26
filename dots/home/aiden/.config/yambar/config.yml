@@ -1,0 +1,429 @@
+# Colours
+# IDE highlights the colours so we want it this way
+bg: &bg 282828ff #282828
+fg: &fg ebdbb2ff #ebdbb2
+light: &light 89786Eff #89786E
+border: &border 504945ff #504945
+highlight: &highlight d8a657ff #d8a657
+urgent: &urgent ea6962ff #ea6962
+
+# Fonts
+font: &font "JetBrainsMono Nerd Font:pixelsize=14"
+bold: &bold "JetBrainsMono Nerd Font:style=Bold:pixelsize=14"
+symbols: &symbols "Symbols Nerd Font:pixelsize=14"
+
+# Spacing
+spacing: &spacing 6
+margin: &margin 12
+
+# Network
+net_poll_interval: &net_poll_interval 1
+
+bar:
+  location: "top"
+  height: 40
+  spacing: *spacing
+  right-margin: *margin
+  background: *bg
+  foreground: *fg
+  border:
+    bottom-width: 1
+    color: *border
+  font: *font
+  monitor: "DP-3"
+
+  left:
+    # Highlights windows that are tagged
+    - river:
+        anchors:
+          - padding: &river_padding 16
+          - base: &river_base
+              default: { string: { text: "{id}", margin: *river_padding } }
+              conditions:
+                id == 30:
+                  - string:
+                      text: "󰈙"
+                      font: *symbols
+                      margin: *river_padding
+                # Scratch (terminal)
+                id == 31:
+                  - string:
+                      text: ""
+                      font: *symbols
+                      margin: *river_padding
+                # Sticky
+                # id == 32: {string: {text: "", margin: *river_padding}}
+                id == 32: { empty: {} }
+        content:
+          map:
+            on-click:
+              left: sh -c "riverctl set-focused-tags $((1 << ({id} - 1)))"
+              right: sh -c "riverctl toggle-focused-tags $((1 << ({id} -1)))"
+            default: { empty: {} }
+            conditions:
+              state == "urgent":
+                map:
+                  <<: *river_base
+                  font: *bold
+                  foreground: *bg
+                  deco: { background: { color: *urgent } }
+              state == "focused":
+                map:
+                  <<: *river_base
+                  font: *bold
+                  foreground: *bg
+                  deco: { background: { color: *fg } }
+              state == "unfocused":
+                map:
+                  <<: *river_base
+                  deco: { background: { color: *border } }
+              occupied:
+                map:
+                  <<: *river_base
+
+    - script:
+        path: /home/aiden/.local/bin/river-watch-mode
+        content:
+          map:
+            on-click:
+              left: /home/aiden/.local/bin/river-enter-mode normal
+            default: { empty: {} }
+            conditions:
+              mode == "float":
+                - string:
+                    text: "FLOAT"
+                    font: *bold
+                    foreground: *highlight
+                    margin: *spacing
+              mode == "passthrough":
+                - string:
+                    text: "PASSTHROUGH"
+                    font: *bold
+                    foreground: *urgent
+                    margin: *spacing
+
+    - mem:
+        interval: 2000
+        anchors:
+          - icon: &mem_icon ""
+          - used: &mem_used "{used:mb}"
+          - denominator: &mem_denom "MB"
+        content:
+          map:
+            default:
+              - string:
+                  text: *mem_icon
+                  font: *symbols
+                  margin: *spacing
+              - string: { text: *mem_used }
+              - string: { text: *mem_denom }
+            conditions:
+              percent_used >= 90:
+                - string:
+                    text: *mem_icon
+                    font: *symbols
+                    foreground: *urgent
+                    margin: *spacing
+                - string:
+                    text: *mem_used
+                    font: *bold
+                    foreground: *urgent
+                - string:
+                    text: *mem_denom
+                    foreground: *urgent
+              percent_used >= 80:
+                - string:
+                    text: *mem_icon
+                    font: *symbols
+                    foreground: *highlight
+                    margin: *spacing
+                - string:
+                    text: *mem_used
+                    font: *bold
+                    foreground: *highlight
+                - string:
+                    text: *mem_denom
+                    foreground: *highlight
+              percent_used < 20:
+                - string:
+                    text: *mem_icon
+                    font: *symbols
+                    foreground: *border
+                    margin: *spacing
+                - string:
+                    text: *mem_used
+                    foreground: *border
+                - string:
+                    text: *mem_denom
+                    foreground: *border
+              percent_used < 40:
+                - string:
+                    text: *mem_icon
+                    font: *symbols
+                    foreground: *light
+                    margin: *spacing
+                - string:
+                    text: *mem_used
+                    foreground: *light
+                - string:
+                    text: *mem_denom
+                    foreground: *light
+
+    - cpu:
+        anchors:
+          - icon: &cpu_icon ""
+          - usage: &cpu_usage "{cpu}%"
+        content:
+          map:
+            conditions:
+              id < 0 && cpu >= 80:
+                - string:
+                    text: *cpu_icon
+                    font: *symbols
+                    foreground: *urgent
+                    margin: *spacing
+                - string:
+                    text: *cpu_usage
+                    font: *bold
+                    foreground: *urgent
+              id < 0 && cpu >= 60:
+                - string:
+                    text: *cpu_icon
+                    font: *symbols
+                    foreground: *highlight
+                    margin: *spacing
+                - string:
+                    text: *cpu_usage
+                    font: *bold
+                    foreground: *highlight
+              id < 0 && cpu < 15:
+                - string:
+                    text: *cpu_icon
+                    font: *symbols
+                    foreground: *border
+                    margin: *spacing
+                - string:
+                    text: *cpu_usage
+                    foreground: *border
+              id < 0 && cpu < 30:
+                - string:
+                    text: *cpu_icon
+                    font: *symbols
+                    foreground: *light
+                    margin: *spacing
+                - string:
+                    text: *cpu_usage
+                    foreground: *light
+              id < 0:
+                - string: { text: *cpu_icon, font: *symbols, margin: *spacing }
+                - string: { text: *cpu_usage }
+
+    - script:
+        path: "/home/aiden/.local/bin/cpufreq"
+        args: [2]
+        anchors: { freq: &freq "{freq}GHz" }
+        content:
+          ramp:
+            tag: freq
+            min: 2
+            max: 6
+            items:
+              - list:
+                  items:
+                    - string: { text: *freq, foreground: *border }
+              - list:
+                  items:
+                    - string: { text: *freq, foreground: *light }
+              - list:
+                  items:
+                    - string: { text: *freq }
+              - list:
+                  items:
+                    - string:
+                        text: *freq
+                        font: *bold
+                        foreground: *highlight
+              - list:
+                  items:
+                    - string:
+                        text: *freq
+                        font: *bold
+                        foreground: *urgent
+
+    - script:
+        path: "/home/aiden/.local/bin/cputemp"
+        args: [2]
+        anchors: { temp: &temp "{temp}°C" }
+        content:
+          ramp:
+            tag: temp
+            min: 35
+            max: 105
+            items:
+              - list:
+                  items:
+                    - string:
+                        text: ""
+                        font: *symbols
+                        foreground: *border
+                        margin: *spacing
+                    - string: { text: *temp, foreground: *border }
+              - list:
+                  items:
+                    - string:
+                        text: ""
+                        font: *symbols
+                        foreground: *light
+                        margin: *spacing
+                    - string: { text: *temp, foreground: *light }
+              - list:
+                  items:
+                    - string: { text: "", font: *symbols, margin: *spacing }
+                    - string: { text: *temp }
+              - list:
+                  items:
+                    - string: { text: "", font: *symbols, margin: *spacing }
+                    - string: { text: *temp }
+              - list:
+                  items:
+                    - string:
+                        text: ""
+                        font: *symbols
+                        margin: *spacing
+                        foreground: *highlight
+                    - string:
+                        text: *temp
+                        font: *bold
+                        foreground: *highlight
+              - list:
+                  items:
+                    - string:
+                        text: ""
+                        font: *symbols
+                        margin: *spacing
+                        foreground: *urgent
+                    - string:
+                        text: *temp
+                        font: *bold
+                        foreground: *urgent
+
+    - disk-io:
+        interval: 8000
+        content:
+          map:
+            conditions:
+              device == "nvme0n1p2":
+                map:
+                  conditions:
+                    read_speed > 1073741824:
+                      - string:
+                          text: "{read_speed:gib}GiB/s"
+                    read_speed > 1048576:
+                      - string:
+                          text: "{read_speed:mib}MiB/s"
+                          foreground: *light
+                    read_speed > 1024:
+                      - string:
+                          text: "{read_speed:kib}KiB/s"
+                          foreground: *border
+
+    - disk-io:
+        interval: 8000
+        content:
+          map:
+            conditions:
+              device == "nvme0n1p2":
+                map:
+                  conditions:
+                    write_speed > 1073741824:
+                      - string:
+                          text: "{write_speed:gib}GiB/s"
+                    write_speed > 1048576:
+                      - string:
+                          text: "{write_speed:mib}MiB/s"
+                          foreground: *light
+                    write_speed > 1024:
+                      - string:
+                          text: "{write_speed:kib}KiB/s"
+                          foreground: *border
+
+  center:
+    # Displays window title
+    - foreign-toplevel:
+        content:
+          map:
+            default:
+              - string: { text: "[", foreground: *border }
+              - string: { text: "{app-id}", foreground: *light, font: *bold }
+              - string: { text: "]", foreground: *border }
+              - string: { text: "{title}", max: 64, margin: *spacing }
+            conditions:
+              ~activated: { empty: {} }
+
+  right:
+    - network:
+        name: "wlo1"
+        poll-interval: *net_poll_interval
+        content:
+          map:
+            on-click:
+              right: nm-connection-editor
+            conditions:
+              ~carrier: { empty: {} }
+              carrier:
+                map:
+                  default:
+                    - string: { text: "{ssid}", margin: *spacing }
+                    - string: { text: "", font: *symbols }
+                  conditions:
+                    state == "down": { string: { text: "󰅛" } }
+
+    - script:
+        path: "/home/aiden/.local/bin/vol"
+        poll-interval: 1
+        content:
+          map:
+            on-click:
+              left: "/home/aiden/.local/bin/vol toggle"
+              right: "pavucontrol"
+              wheel-up: "/home/aiden/.local/bin/vol up 1"
+              wheel-down: "/home/aiden/.local/bin/vol down 1"
+            default:
+              ramp:
+                tag: vol
+                min: 0
+                max: 100
+                items:
+                  - list:
+                      items:
+                        - string: { text: "{vol}%", margin: *spacing }
+                        - string: { text: "󰕿", font: *symbols }
+                  - list:
+                      items:
+                        - string: { text: "{vol}%", margin: *spacing }
+                        - string: { text: "󰖀", font: *symbols }
+                  - list:
+                      items:
+                        - string: { text: "{vol}%", margin: *spacing }
+                        - string: { text: "󰕾", font: *symbols }
+            conditions:
+              mute:
+                - list:
+                    items:
+                      - string:
+                          text: "muted"
+                          foreground: *light
+                          margin: *spacing
+                      - string:
+                          text: "󰸈"
+                          font: *symbols
+                          foreground: *light
+
+    - clock:
+        date-format: "%a %d"
+        time-format: "%H:%M:%S"
+        content:
+          - string: { text: "{date}" }
+          - string: { text: ",", foreground: *light }
+          - string: { text: "{time}", font: *bold, margin: *spacing }
+          - string: { text: "", font: *symbols }

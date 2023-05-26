@@ -8,3 +8,5 @@
 	email = aiden@nedia.dev
 [init]
 	defaultBranch = main
+[core]
+	editor = nvim

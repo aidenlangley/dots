@@ -1,9 +1,11 @@
 #! /usr/bin/env sh
 
-# Mouse
-riverctl input pointer-1133-16514-Logitech_MX_Master_3 events enabled
-riverctl input pointer-1133-16514-Logitech_MX_Master_3 accel-profile flat
+riverctl input pointer-4152-6194-SteelSeries_SteelSeries_Sensei_Ten accel-profile flat
+riverctl input pointer-4152-6194-SteelSeries_SteelSeries_Sensei_Ten pointer-accel 0.1
 
-# Trackpad
-riverctl input pointer-2-14-ETPS/2_Elantech_Touchpad disable-while-typing enabled
-riverctl input pointer-2-14-ETPS/2_Elantech_Touchpad tap enabled
+riverctl input pointer-1133-16514-Logitech_Wireless_Mouse_PID:4082 accel-profile flat
+riverctl input pointer-1133-16514-Logitech_Wireless_Mouse_PID:4082 pointer-accel 0.1
+
+riverctl input pointer-1133-45091-MX_Master_3 accel-profile flat
+riverctl input pointer-1133-45091-MX_Master_3 pointer-accel 0.1
+

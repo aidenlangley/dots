@@ -16,3 +16,4 @@ riverctl csd-filter-add app-id ulauncher
 # Firefox
 riverctl float-filter-add title Picture-in-Picture
 riverctl float-filter-add title 'File Operation Progress'
+riverctl float-filter-add title 'Firefox — Sharing Indicator'
