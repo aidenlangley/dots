@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
-PATH="$HOME"/bin:"$HOME"/.local/bin:"$HOME"/.npm:"$HOME"/.dotnet/tools:"$PATH"
-PATH=/usr/local/flutter/bin:/usr/local/go/bin:"$PATH"
+PATH="$PATH":"$HOME"/.local/bin:"$HOME"/.npm:"$HOME"/.dotnet/tools
+PATH="$PATH":/usr/local/flutter/bin:/usr/local/go/bin
 export PATH
 
 EDITOR=$(which nvim)
