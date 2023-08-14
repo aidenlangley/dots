@@ -17,7 +17,7 @@ spacing: &spacing 6
 margin: &margin 12
 
 # Network
-net_poll_interval: &net_poll_interval 1
+net_poll_interval: &net_poll_interval 1000
 
 bar:
   location: "top"
@@ -103,7 +103,7 @@ bar:
                     margin: *spacing
 
     - mem:
-        interval: 2000
+        # interval: 2000
         anchors:
           - icon: &mem_icon ""
           - used: &mem_used "{used:mb}"
@@ -218,37 +218,37 @@ bar:
                 - string: { text: *cpu_icon, font: *symbols, margin: *spacing }
                 - string: { text: *cpu_usage }
 
-    - script:
-        path: "/home/aiden/.local/bin/cpufreq"
-        args: [2]
-        anchors: { freq: &freq "{freq}GHz" }
-        content:
-          ramp:
-            tag: freq
-            min: 2
-            max: 6
-            items:
-              - list:
-                  items:
-                    - string: { text: *freq, foreground: *border }
-              - list:
-                  items:
-                    - string: { text: *freq, foreground: *light }
-              - list:
-                  items:
-                    - string: { text: *freq }
-              - list:
-                  items:
-                    - string:
-                        text: *freq
-                        font: *bold
-                        foreground: *highlight
-              - list:
-                  items:
-                    - string:
-                        text: *freq
-                        font: *bold
-                        foreground: *urgent
+    # - script:
+    #     path: "/home/aiden/.local/bin/cpufreq"
+    #     args: [2]
+    #     anchors: { freq: &freq "{freq}GHz" }
+    #     content:
+    #       ramp:
+    #         tag: freq
+    #         min: 2
+    #         max: 6
+    #         items:
+    #           - list:
+    #               items:
+    #                 - string: { text: *freq, foreground: *border }
+    #           - list:
+    #               items:
+    #                 - string: { text: *freq, foreground: *light }
+    #           - list:
+    #               items:
+    #                 - string: { text: *freq }
+    #           - list:
+    #               items:
+    #                 - string:
+    #                     text: *freq
+    #                     font: *bold
+    #                     foreground: *highlight
+    #           - list:
+    #               items:
+    #                 - string:
+    #                     text: *freq
+    #                     font: *bold
+    #                     foreground: *urgent
 
     - script:
         path: "/home/aiden/.local/bin/cputemp"
@@ -308,7 +308,7 @@ bar:
                         foreground: *urgent
 
     - disk-io:
-        interval: 8000
+        # interval: 8000
         content:
           map:
             conditions:
@@ -328,7 +328,7 @@ bar:
                           foreground: *border
 
     - disk-io:
-        interval: 8000
+        # interval: 8000
         content:
           map:
             conditions:
@@ -361,26 +361,9 @@ bar:
               ~activated: { empty: {} }
 
   right:
-    - network:
-        name: "wlo1"
-        poll-interval: *net_poll_interval
-        content:
-          map:
-            on-click:
-              right: nm-connection-editor
-            conditions:
-              ~carrier: { empty: {} }
-              carrier:
-                map:
-                  default:
-                    - string: { text: "{ssid}", margin: *spacing }
-                    - string: { text: "", font: *symbols }
-                  conditions:
-                    state == "down": { string: { text: "󰅛" } }
-
     - script:
         path: "/home/aiden/.local/bin/vol"
-        poll-interval: 1
+        poll-interval: 1000
         content:
           map:
             on-click:
@@ -427,3 +410,20 @@ bar:
           - string: { text: ",", foreground: *light }
           - string: { text: "{time}", font: *bold, margin: *spacing }
           - string: { text: "", font: *symbols }
+
+    - network:
+        name: "wlo1"
+        poll-interval: *net_poll_interval
+        content:
+          map:
+            on-click:
+              right: nm-connection-editor
+            conditions:
+              ~carrier: { empty: {} }
+              carrier:
+                map:
+                  default:
+                    # - string: { text: "{ssid}", margin: *spacing }
+                    - string: { text: "", font: *symbols }
+                  conditions:
+                    state == "down": { string: { text: "󰅛" } }

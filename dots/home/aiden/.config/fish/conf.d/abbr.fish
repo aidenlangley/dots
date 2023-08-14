@@ -51,3 +51,6 @@ abbr -a wifi "nmcli device wifi"
 set cheat "cht.sh --lite"
 abbr -a ch "$cheat"
 abbr -a cheat "$cheat"
+
+# supabase
+abbr -a sb supabase
