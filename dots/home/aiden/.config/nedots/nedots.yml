@@ -19,7 +19,6 @@ sources:
   - /usr/local/bin/waylock-run
   - package.json
   - .local/bin/brightness
-  - .local/bin/cpufreq
   - .local/bin/cputemp
   - .local/bin/disk
   - .local/bin/mem

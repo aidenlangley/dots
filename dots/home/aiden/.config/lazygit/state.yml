@@ -1,10 +1,12 @@
 lastupdatecheck: 0
 recentrepos:
+- /home/aiden/.config/nvim
+- /home/aiden/Code/auto-format.nvim
+- /home/aiden/Code/auto-save.nvim
 - /home/aiden/Code/riverlane
 - /home/aiden/Code/shop
 - /home/aiden/Code/nedia.dev@sr.ht
 - /home/aiden/vm
-- /home/aiden/.config/nvim
 - /home/aiden/.local/share/nedots
 startuppopupversion: 5
 customcommandshistory: []
