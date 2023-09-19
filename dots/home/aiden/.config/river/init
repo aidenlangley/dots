@@ -13,12 +13,6 @@ source "$HOME"/.config/river/inputs
 source "$HOME"/.config/river/rules
 source "$HOME"/.config/river/config
 
-# Start wallpaper daemon
-swww init
-
-# Status bar
-yambar &
-
 # GTK hangs without this
 dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY
 
@@ -26,4 +20,4 @@ dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY
 systemctl --user import-environment {,WAYLAND_}DISPLAY
 systemctl --user start wayland.target
 
-exec rivertile -view-padding 1 -outer-padding 2 -main-ratio 0.5
+rivertile -view-padding 1 -outer-padding 2 -main-ratio 0.5

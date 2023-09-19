@@ -13,3 +13,5 @@ riverctl set-repeat 50 300
 
 riverctl xcursor-theme Adwaita
 riverctl default-layout rivertile
+
+riverctl keyboard-layout "mao,us"

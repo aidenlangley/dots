@@ -1,10 +1,12 @@
 lastupdatecheck: 0
 recentrepos:
-    - /home/aiden/Code/shop
-    - /home/aiden/Code/nedia
-    - /home/aiden/vm
-    - /home/aiden/.config/nvim
-    - /home/aiden/.local/share/nedots
+- /home/aiden/Code/riverlane
+- /home/aiden/Code/shop
+- /home/aiden/Code/nedia.dev@sr.ht
+- /home/aiden/vm
+- /home/aiden/.config/nvim
+- /home/aiden/.local/share/nedots
 startuppopupversion: 5
 customcommandshistory: []
 hidecommandlog: false
+ignorewhitespaceindiffview: false

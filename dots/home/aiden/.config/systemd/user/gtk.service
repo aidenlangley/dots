@@ -7,10 +7,12 @@ PartOf=graphical-session.target
 OnFailure=notify-err@%n
 
 [Service]
+Type=oneshot
 Environment=\
 SCHEMA=org.gnome.desktop.interface
 
 ExecStart=/usr/bin/gsettings set $SCHEMA gtk-theme "Adwaita-dark"
 ExecStart=/usr/bin/gsettings set $SCHEMA icon-theme "Qogir-dark"
+ExecStart=/usr/bin/gsettings set $SCHEMA cursor-theme "Adwaita"
+ExecStart=/usr/bin/gsettings set $SCHEMA cursor-size 16
 ExecStart=/usr/bin/gsettings set $SCHEMA font-name "Source Sans Pro"
-Type=oneshot

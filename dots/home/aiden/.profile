@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-PATH="$PATH":"$HOME"/.local/bin:"$HOME"/.npm:"$HOME"/.dotnet/tools:"$HOME"/go/bin
+PATH="$PATH":"$HOME"/.local/bin:"$HOME"/.npm:"$HOME"/.dotnet/tools:"$HOME"/go/bin:"$HOME"/.pub-cache/bin
 PATH="$PATH":/usr/local/flutter/bin:/usr/local/go/bin
 export PATH
 

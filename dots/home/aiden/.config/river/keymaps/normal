@@ -2,10 +2,10 @@
 
 mod="Super"
 
-riverctl map normal $mod Return spawn kitty
+riverctl map normal $mod Return spawn foot
 riverctl map normal $mod Slash spawn ulauncher
 riverctl map normal $mod B spawn firefox
-riverctl map normal $mod E spawn 'kitty -e nvim'
+riverctl map normal $mod E spawn 'foot -e nvim'
 riverctl map normal $mod+Shift E spawn thunar
 
 riverctl map normal $mod T toggle-float

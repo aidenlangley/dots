@@ -8,4 +8,3 @@ riverctl input pointer-1133-16514-Logitech_Wireless_Mouse_PID:4082 pointer-accel
 
 riverctl input pointer-1133-45091-MX_Master_3 accel-profile flat
 riverctl input pointer-1133-45091-MX_Master_3 pointer-accel 0.1
-

@@ -218,38 +218,6 @@ bar:
                 - string: { text: *cpu_icon, font: *symbols, margin: *spacing }
                 - string: { text: *cpu_usage }
 
-    # - script:
-    #     path: "/home/aiden/.local/bin/cpufreq"
-    #     args: [2]
-    #     anchors: { freq: &freq "{freq}GHz" }
-    #     content:
-    #       ramp:
-    #         tag: freq
-    #         min: 2
-    #         max: 6
-    #         items:
-    #           - list:
-    #               items:
-    #                 - string: { text: *freq, foreground: *border }
-    #           - list:
-    #               items:
-    #                 - string: { text: *freq, foreground: *light }
-    #           - list:
-    #               items:
-    #                 - string: { text: *freq }
-    #           - list:
-    #               items:
-    #                 - string:
-    #                     text: *freq
-    #                     font: *bold
-    #                     foreground: *highlight
-    #           - list:
-    #               items:
-    #                 - string:
-    #                     text: *freq
-    #                     font: *bold
-    #                     foreground: *urgent
-
     - script:
         path: "/home/aiden/.local/bin/cputemp"
         args: [2]
@@ -257,8 +225,8 @@ bar:
         content:
           ramp:
             tag: temp
-            min: 35
-            max: 105
+            min: 25
+            max: 100
             items:
               - list:
                   items:
@@ -353,14 +321,20 @@ bar:
         content:
           map:
             default:
-              - string: { text: "[", foreground: *border }
-              - string: { text: "{app-id}", foreground: *light, font: *bold }
-              - string: { text: "]", foreground: *border }
+              - string: { text: "{app-id} ", foreground: *light }
+              - string: { text: "|", foreground: *border }
               - string: { text: "{title}", max: 64, margin: *spacing }
             conditions:
               ~activated: { empty: {} }
 
   right:
+    - script:
+        path: "/home/aiden/.local/bin/tuned"
+        args: [5]
+        content:
+          - string: { text: "tuned: ", foreground: *border }
+          - string: { text: "{profile}", foreground: *light }
+
     - script:
         path: "/home/aiden/.local/bin/vol"
         poll-interval: 1000
@@ -375,7 +349,7 @@ bar:
               ramp:
                 tag: vol
                 min: 0
-                max: 100
+                max: 200
                 items:
                   - list:
                       items:

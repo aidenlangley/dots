@@ -12,8 +12,8 @@ export XDG_CURRENT_DESKTOP
 MOZ_ENABLE_WAYLAND=1
 export MOZ_ENABLE_WAYLAND
 
-GDK_BACKEND=wayland
-export GDK_BACKEND
+# GDK_BACKEND=wayland
+# export GDK_BACKEND
 
 QT_QPA_PLATFORM=wayland
 export QT_QPA_PLATFORM
@@ -26,9 +26,6 @@ export _JAVA_AWT_WM_NONREPARENTING
 
 CLUTTER_BACKEND=wayland
 export CLUTTER_BACKEND
-
-# XKB_DEFAULT_LAYOUT="mi,gb"
-# export XKB_DEFAULT_LAYOUT
 
 # exec river
 exec systemd-cat --identifier=river river "$@"
