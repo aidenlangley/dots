@@ -1,12 +1,12 @@
 lastupdatecheck: 0
 recentrepos:
-- /home/aiden/.config/nvim
-- /home/aiden/Code/nvim-treesitter
-- /home/aiden/Code/auto-save.nvim
-- /home/aiden/vm
+- /home/aiden/Code/conform.nvim
+- /home/aiden/Code/symfony
 - /home/aiden/Code/auto-format.nvim
+- /home/aiden/Code/nedots.go
+- /home/aiden/Code/auto-save.nvim
+- /home/aiden/.config/nvim
 - /home/aiden/Code/riverlane
-- /home/aiden/Code/shop
 - /home/aiden/Code/nedia.dev@sr.ht
 - /home/aiden/.local/share/nedots
 startuppopupversion: 5

@@ -7,7 +7,7 @@ AUTO_SCALE: true
 
 SCALE:
   - NAME_DESC: HDMI-A-1
-    # SCALE: 1
+    SCALE: 1
 
 MODE:
   - NAME_DESC: HDMI-A-1
