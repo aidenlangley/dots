@@ -1,0 +1,13 @@
+image: alpine/edge
+triggers:
+  - action: email
+    condition: failure
+    to: Aiden Langley <aiden@nedia.dev>
+secrets:
+  - bbc61c83-9efc-4aad-86ec-51f6b5078249
+tasks:
+  - mirror: |
+      cd dots
+      git remote add gh git@github.com:aidenlangley/dots.git
+      ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+      git push gh --tags && git push gh main
