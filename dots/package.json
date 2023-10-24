@@ -1,0 +1,7 @@
+{
+  "name": "aiden",
+  "packageManager": "yarn@3.5.1",
+  "dependencies": {
+    "neovim": "^4.10.1"
+  }
+}

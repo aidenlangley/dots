@@ -1,0 +1,11 @@
+[Unit]
+Description=yambar, status bar
+Documentation=https://codeberg.org/dnkl/yambar
+
+After=graphical-session-pre.target
+PartOf=graphical-session.target
+
+OnFailure=notify-err@%n
+
+[Service]
+ExecStart=/usr/bin/yambar

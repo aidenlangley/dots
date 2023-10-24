@@ -1,0 +1,232 @@
+# Colours
+# IDE highlights the colours so we want it this way
+# yamllint disable rule:comments
+# yamllint disable rule:document-start
+bg: &bg 282828ff #282828
+fg: &fg ebdbb2ff #ebdbb2
+light: &light 89786Eff #89786E
+border: &border 504945ff #504945
+highlight: &highlight d8a657ff #d8a657
+urgent: &urgent ea6962ff #ea6962
+affirm: &affirm a9b665ff #a9b665
+# yamllint enable
+
+# Fonts
+font: &font "JetBrains Mono:pixelsize=12"
+bold: &bold "JetBrains Mono:style=Bold:pixelsize=12"
+symbols: &symbols "Symbols Nerd Font:pixelsize=14"
+
+# Spacing
+spacing: &spacing 4
+margin: &margin 12
+
+bar:
+  monitor: "eDP-1"
+  location: "top"
+  height: 32
+  spacing: *spacing
+  right-margin: *margin
+  background: *bg
+  foreground: *fg
+  border:
+    bottom-width: 1
+    color: *border
+  font: *font
+
+  left:
+    # Highlights windows that are tagged
+    - river:
+        anchors:
+          - padding: &river_padding 12
+          - base: &river_base
+              default: {string: {text: "{id}", margin: *river_padding}}
+              conditions:
+                id == 30:
+                  - string:
+                      text: "󰈙"
+                      font: *symbols
+                      margin: *river_padding
+                # Scratch (terminal)
+                id == 31:
+                  - string:
+                      text: ""
+                      font: *symbols
+                      margin: *river_padding
+                # Sticky
+                # id == 32: {string: {text: "", margin: *river_padding}}
+                id == 32: {empty: {}}
+        content:
+          map:
+            on-click:
+              left: sh -c "riverctl set-focused-tags $((1 << ({id} - 1)))"
+              right: sh -c "riverctl toggle-focused-tags $((1 << ({id} -1)))"
+            default: {empty: {}}
+            conditions:
+              state == "urgent":
+                map:
+                  <<: *river_base
+                  font: *bold
+                  foreground: *bg
+                  deco: {background: {color: *urgent}}
+              state == "focused":
+                map:
+                  <<: *river_base
+                  font: *bold
+                  foreground: *bg
+                  deco: {background: {color: *fg}}
+              state == "unfocused":
+                map:
+                  <<: *river_base
+                  deco: {background: {color: *border}}
+              occupied:
+                map:
+                  <<: *river_base
+  center:
+    # Displays window title
+    - foreign-toplevel:
+        content:
+          map:
+            default:
+              - string: {text: "[", foreground: *light}
+              - string: {text: "{app-id}", font: *bold}
+              - string: {text: "]", foreground: *light}
+              - string: {text: "{title}", max: 64, margin: *spacing}
+            conditions:
+              ~activated: {empty: {}}
+
+  right:
+    - clock:
+        time-format: "%H:%M:%S"
+        content:
+          - string: {text: "{time}", font: *bold, margin: *spacing}
+          - string: {text: "", font: *symbols}
+
+    - battery:
+        name: "BAT0"
+        poll-interval: 30
+        anchors:
+          capacity: &capacity "{capacity}%"
+          estimate: &estimate "{estimate}"
+        content:
+          map:
+            default:
+              ramp:
+                tag: "capacity"
+                min: 0
+                max: 100
+                items:
+                  - list:
+                      items:
+                        - string:
+                            text: *capacity
+                            font: *bold
+                            foreground: *urgent
+                            margin: *spacing
+                        - string:
+                            text: ""
+                            font: *symbols
+                            foreground: *urgent
+                  - list:
+                      items:
+                        - string:
+                            text: *capacity
+                            font: *bold
+                            foreground: *urgent
+                            margin: *spacing
+                        - string:
+                            text: ""
+                            font: *symbols
+                            foreground: *urgent
+                  - list:
+                      items:
+                        - string: {text: *capacity, margin: *spacing}
+                        - string:
+                            text: ""
+                            font: *symbols
+                            foreground: *highlight
+                  - list:
+                      items:
+                        - string: {text: *capacity, margin: *spacing}
+                        - string:
+                            text: ""
+                            font: *symbols
+                            foreground: *highlight
+                  - list:
+                      items:
+                        - string: {text: *capacity, margin: *spacing}
+                        - string: {text: "", font: *symbols}
+                  - list:
+                      items:
+                        - string: {text: *capacity, margin: *spacing}
+                        - string: {text: "", font: *symbols}
+                  - list:
+                      items:
+                        - string: {text: *capacity, margin: *spacing}
+                        - string: {text: "", font: *symbols}
+                  - list:
+                      items:
+                        - string: {text: *capacity, margin: *spacing}
+                        - string: {text: "", font: *symbols}
+                  - list:
+                      items:
+                        - string: {text: *capacity, margin: *spacing}
+                        - string: {text: "", font: *symbols}
+                  - list:
+                      items:
+                        - string: {text: *capacity, margin: *spacing}
+                        - string: {text: "", font: *symbols}
+                  - list:
+                      items:
+                        - string:
+                            text: ""
+                            font: *symbols
+                            foreground: *affirm
+            conditions:
+              state == "full":
+                - string: {text: "", font: *symbols, foreground: *affirm}
+              state == "charging":
+                ramp:
+                  tag: "capacity"
+                  min: 0
+                  max: 100
+                  items:
+                    - list:
+                        items:
+                          - string: {text: *estimate, margin: *spacing}
+                          - string:
+                              text: ""
+                              font: *symbols
+                              foreground: *urgent
+                    - list:
+                        items:
+                          - string: {text: *estimate, margin: *spacing}
+                          - string:
+                              text: ""
+                              font: *symbols
+                              foreground: *highlight
+                    - list:
+                        items:
+                          - string: {text: *estimate, margin: *spacing}
+                          - string: {text: "", font: *symbols}
+                    - list:
+                        items:
+                          - string: {text: *estimate, margin: *spacing}
+                          - string: {text: "", font: *symbols}
+                    - list:
+                        items:
+                          - string: {text: *estimate, margin: *spacing}
+                          - string: {text: "", font: *symbols}
+                    - list:
+                        items:
+                          - string: {text: *estimate, margin: *spacing}
+                          - string: {text: "", font: *symbols}
+                    - list:
+                        items:
+                          - string: {text: *estimate, margin: *spacing}
+                          - string: {text: "", font: *symbols}
+                    - list:
+                        items:
+                          - string:
+                              text: ""
+                              font: *symbols
+                              foreground: *affirm

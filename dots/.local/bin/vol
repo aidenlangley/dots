@@ -1,0 +1,46 @@
+#! /usr/bin/env sh
+
+get_vol() {
+	pactl get-sink-volume @DEFAULT_SINK@ |
+		awk '/front-left/{print $5}' |
+		sed 's/\(.*\)%/\1/'
+}
+
+notify() {
+	vol=$(get_vol)
+	notify-send -a volume -u low \
+		-h string:image-path:/usr/share/icons/Qogir-dark/24/panel/rhythmbox-indicator.svg \
+		-h string:wired-tag:volume \
+		-h int:value:"$vol" -h string:x-canonical-private-synchronous:volume \
+		"$vol% Volume" "$1"
+}
+
+cmd=$1
+increment=$2
+
+case "$cmd" in
+'toggle')
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
+	notify "Toggled mute"
+	;;
+'up')
+	pactl set-sink-volume @DEFAULT_SINK@ "+$increment%"
+	notify "Increased volume"
+	;;
+'down')
+	pactl set-sink-volume @DEFAULT_SINK@ "-$increment%"
+	notify "Decreased volume"
+	;;
+'' | *)
+	muted=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '/Mute/{print $2}')
+	if test "$muted" = "yes"; then
+		echo "vol|int|0"
+		echo "mute|bool|true"
+		echo
+	else
+		echo "vol|int|$(get_vol)"
+		echo "mute|bool|false"
+		echo
+	fi
+	;;
+esac

@@ -1,0 +1,18 @@
+#! /usr/bin/env sh
+
+river_mode_ipc=/tmp/.river-mode
+
+# Create FIFO in the listener since the listener is reponsible for receiving
+# mode switch notifications.
+mkfifo "$river_mode_ipc" 2>/dev/null
+
+# Initial state is always normal. This shuts yambar up when it complains that
+# `mode` was not found.
+echo "mode|string|normal"
+echo
+
+# Continuously monitor and echo out a `yambar` readable output.
+while true; do
+	echo "mode|string|$(cat "$river_mode_ipc")"
+	echo
+done

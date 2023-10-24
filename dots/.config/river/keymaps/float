@@ -1,0 +1,45 @@
+#! /usr/bin/env sh
+
+riverctl declare-mode float
+riverctl map normal Super G spawn 'river-enter-mode float'
+riverctl map float Super G spawn 'river-enter-mode normal'
+
+riverctl map float None T toggle-float
+
+riverctl map float None Comma send-to-output previous
+riverctl map float None Period send-to-output next
+
+riverctl map float None H focus-view previous
+riverctl map float None L focus-view next
+riverctl map float None Left focus-view previous
+riverctl map float None Right focus-view next
+
+riverctl map -repeat float Control H move left 100
+riverctl map -repeat float Control J move down 100
+riverctl map -repeat float Control K move up 100
+riverctl map -repeat float Control L move right 100
+
+riverctl map -repeat float Control Left move left 100
+riverctl map -repeat float Control Down move down 100
+riverctl map -repeat float Control Up move up 100
+riverctl map -repeat float Control Right move right 100
+
+riverctl map -repeat float Alt H snap left
+riverctl map -repeat float Alt J snap down
+riverctl map -repeat float Alt K snap up
+riverctl map -repeat float Alt L snap right
+
+riverctl map -repeat float Alt Left snap left
+riverctl map -repeat float Alt Down snap down
+riverctl map -repeat float Alt Up snap up
+riverctl map -repeat float Alt Right snap right
+
+riverctl map -repeat float Shift H resize horizontal -100
+riverctl map -repeat float Shift J resize vertical -100
+riverctl map -repeat float Shift K resize vertical 100
+riverctl map -repeat float Shift L resize horizontal 100
+
+riverctl map -repeat float Shift Left resize horizontal -100
+riverctl map -repeat float Shift Down resize vertical -100
+riverctl map -repeat float Shift Up resize vertical 100
+riverctl map -repeat float Shift Right resize horizontal 100

@@ -1,0 +1,87 @@
+#! /usr/bin/env bash
+
+mod="Super"
+
+riverctl map normal $mod Return spawn foot
+riverctl map normal $mod Slash spawn ulauncher
+riverctl map normal $mod B spawn firefox
+riverctl map normal $mod E spawn 'foot -e nvim'
+riverctl map normal $mod+Shift E spawn thunar
+
+riverctl map normal $mod T toggle-float
+riverctl map normal $mod W close
+riverctl map normal $mod Z zoom
+riverctl map normal $mod F toggle-fullscreen
+riverctl map normal $mod Escape spawn waylock-run
+riverctl map normal $mod+Shift Q exit
+
+riverctl map normal $mod J swap previous
+riverctl map normal $mod K swap next
+riverctl map normal $mod Up swap previous
+riverctl map normal $mod Down swap next
+
+riverctl map normal $mod H focus-view previous
+riverctl map normal $mod L focus-view next
+riverctl map normal $mod Left focus-view previous
+riverctl map normal $mod Right focus-view next
+riverctl map normal Alt Tab focus-previous-tags
+
+riverctl map normal $mod Period focus-output next
+riverctl map normal $mod Comma focus-output previous
+riverctl map normal $mod+Shift Period send-to-output next
+riverctl map normal $mod+Shift Comma send-to-output previous
+
+riverctl map -repeat normal $mod+Control H send-layout-cmd rivertile "main-ratio -0.05"
+riverctl map -repeat normal $mod+Control L send-layout-cmd rivertile "main-ratio +0.05"
+riverctl map -repeat normal $mod+Control Left send-layout-cmd rivertile "main-ratio -0.05"
+riverctl map -repeat normal $mod+Control Right send-layout-cmd rivertile "main-ratio +0.05"
+riverctl map normal $mod Equal send-layout-cmd rivertile "main-count +1"
+riverctl map normal $mod Minus send-layout-cmd rivertile "main-count -1"
+
+riverctl map normal $mod+Control K send-layout-cmd rivertile "main-location top"
+riverctl map normal $mod+Control J send-layout-cmd rivertile "main-location left"
+riverctl map normal $mod+Control Up send-layout-cmd rivertile "main-location top"
+riverctl map normal $mod+Control Down send-layout-cmd rivertile "main-location left"
+
+riverctl map-pointer normal $mod BTN_LEFT move-view
+riverctl map-pointer normal $mod BTN_RIGHT resize-view
+
+# Pin a window
+pinned_tag="$(qalc -t "2 ^ 31")"
+riverctl map normal $mod P toggle-view-tags "$pinned_tag"
+
+all_but_pinned_tag=$((ALL_TAGS ^ pinned_tag))
+riverctl spawn-tagmask "$all_but_pinned_tag"
+
+for i in $(seq 1 9); do
+	tag="$(qalc -t "2 ^ ($i - 1)")"
+	riverctl map -repeat normal $mod "$i" set-focused-tags $((pinned_tag + tag))
+	riverctl map -repeat normal $mod+Control "$i" toggle-focused-tags "$tag"
+	riverctl map -repeat normal $mod+Shift "$i" set-view-tags "$tag"
+	riverctl map -repeat normal $mod+Shift+Control "$i" toggle-view-tags "$tag"
+done
+
+# Allows us to potentially nest window managers.
+riverctl declare-mode passthrough
+riverctl map normal $mod F11 spawn 'river-enter-mode passthrough'
+riverctl map passthrough $mod F11 spawn 'river-enter-mode normal'
+
+# Enable these mappings when locked as well in normal mode.
+for mode in normal locked; do
+	riverctl map -repeat $mode None XF86AudioRaiseVolume spawn 'vol up 1'
+	riverctl map -repeat $mode None XF86AudioLowerVolume spawn 'vol down 1'
+	riverctl map $mode None XF86AudioMute spawn 'vol toggle'
+	riverctl map $mode None XF86AudioMicMute spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+
+	riverctl map $mode None XF86AudioPlay spawn "playerctl play-pause"
+	riverctl map $mode None XF86AudioPause spawn "playerctl pause"
+	riverctl map $mode None XF86AudioNext spawn "playerctl next"
+	riverctl map $mode None XF86AudioPrev spawn "playerctl previous"
+
+	riverctl map -repeat $mode None XF86MonBrightnessUp spawn 'brightness up 1'
+	riverctl map -repeat $mode None XF86MonBrightnessDown spawn 'brightness down 1'
+done
+
+# Utilities.
+riverctl map normal None Print spawn "grim - | swappy -f - "
+riverctl map normal Shift Print spawn 'grim -g "$(slurp)" - | swappy -f - '

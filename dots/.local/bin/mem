@@ -1,0 +1,34 @@
+#! /usr/bin/env sh
+
+mem=$1
+interval=$2
+
+case $interval in
+'' | *[!0-9]*)
+	echo "Interval must be an integer"
+	exit 1
+	;;
+*) ;;
+esac
+
+while true; do
+	if test "$mem" = "swap"; then
+		total=$(awk '/SwapTotal/{print $(NF-1)}' /proc/meminfo)
+		free=$(awk '/SwapFree/{print $(NF-1)}' /proc/meminfo)
+		used_kb=$((total - free))
+	else
+		total=$(awk '/MemTotal/{print $(NF-1)}' /proc/meminfo)
+		avail=$(awk '/MemAvailable/{print $(NF-1)}' /proc/meminfo)
+		used_kb=$((total - avail))
+	fi
+
+	kb_to_mib=0.00095367431640625
+	percent=$((100 * used_kb / total))
+	used=$(qalc -t "'$used_kb * $kb_to_mib'")
+
+	echo "used|int|$(printf "%.0f" "$used")"
+	echo "percent|int|$(printf "%.0f" "$percent")"
+	echo
+
+	sleep "$interval"
+done

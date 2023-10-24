@@ -1,0 +1,11 @@
+[Unit]
+Description=Display management via kanshi
+Documentation=man:kanshi(1)
+
+After=graphical-session-pre.target
+PartOf=graphical-session.target
+
+OnFailure=notify-err@%n
+
+[Service]
+ExecStart=/usr/bin/kanshi

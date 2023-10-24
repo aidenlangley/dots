@@ -1,0 +1,23 @@
+#! /usr/bin/env bash
+# shellcheck disable=1091
+
+ALL_TAGS="$(qalc -t "(2 ^ 32) - 1")"
+export ALL_TAGS
+
+source "$HOME"/.config/river/keymaps/normal
+source "$HOME"/.config/river/keymaps/float
+# source "$HOME"/.config/river/keymaps/tags/docs
+# source "$HOME"/.config/river/keymaps/tags/scratch
+
+source "$HOME"/.config/river/inputs
+source "$HOME"/.config/river/rules
+source "$HOME"/.config/river/config
+
+# GTK hangs without this
+dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY
+
+# Import environment variables so that systemd runs smooth
+systemctl --user import-environment {,WAYLAND_}DISPLAY
+systemctl --user start wayland.target
+
+rivertile -view-padding 1 -outer-padding 2 -main-ratio 0.5

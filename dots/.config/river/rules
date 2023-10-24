@@ -1,0 +1,19 @@
+#! /usr/bin/env sh
+
+# Add a rule so that all windows given the id or title float will float
+riverctl csd-filter-add app-id float
+riverctl float-filter-add app-id float
+
+riverctl float-filter-add app-id XEyes
+riverctl float-filter-add app-id nm-connection-editor
+riverctl float-filter-add app-id pavucontrol
+riverctl float-filter-add app-id ulauncher
+riverctl float-filter-add app-id blueman-manager
+
+# Remove decorations
+riverctl csd-filter-add app-id ulauncher
+
+# Firefox
+riverctl float-filter-add title Picture-in-Picture
+riverctl float-filter-add title 'File Operation Progress'
+riverctl float-filter-add title 'Firefox — Sharing Indicator'

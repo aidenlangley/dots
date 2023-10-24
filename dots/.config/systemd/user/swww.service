@@ -1,0 +1,12 @@
+[Unit]
+Description=Start swww daemon
+Documentation=https://github.com/Horus645/swww
+
+After=graphical-session-pre.target
+PartOf=graphical-session.target
+Wants=swww-refresh.service
+
+OnFailure=notify-err@%n
+
+[Service]
+ExecStart=/usr/bin/swww init --no-daemon

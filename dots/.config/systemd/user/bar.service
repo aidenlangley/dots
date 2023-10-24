@@ -1,0 +1,11 @@
+[Unit]
+Description=Status bar via yambar
+Documentation=man:yambar(1)
+
+After=graphical-session-pre.target
+PartOf=graphical-session.target
+
+OnFailure=notify-err@%n
+
+[Service]
+ExecStart=/usr/bin/yambar -c %h/.config/yambar/main.yml -l auto -d warning
