@@ -1,9 +1,13 @@
 lastupdatecheck: 0
 recentrepos:
-- /home/aiden/.config/nvim
-- /home/aiden/Code/conform.nvim
+- /home/aiden/.cache/nedots
+- /home/aiden/Code/nedots
 - /home/aiden/Code/nedots.go
+- /home/aiden/.config/nvim
+- /home/aiden/Code/nedots.go/src
 - /home/aiden/Code/auto-save.nvim
+- /home/aiden/Code/nedots.go-test/src
+- /home/aiden/Code/conform.nvim
 - /home/aiden/Code/symfony
 - /home/aiden/Code/auto-format.nvim
 - /home/aiden/Code/riverlane

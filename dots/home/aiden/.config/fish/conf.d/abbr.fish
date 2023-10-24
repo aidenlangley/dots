@@ -54,3 +54,7 @@ abbr -a cheat "$cheat"
 
 # supabase
 abbr -a sb supabase
+
+abbr -a po podman
+abbr -a do podman
+abbr -a docker podman
