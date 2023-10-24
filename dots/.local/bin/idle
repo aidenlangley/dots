@@ -1,9 +1,0 @@
-#! /usr/bin/env bash
-
-path=/var/tmp/idle-status
-mkfifo $path &>/dev/null || echo "status|bool|true" && echo
-
-while true; do
-	cat $path
-	echo
-done

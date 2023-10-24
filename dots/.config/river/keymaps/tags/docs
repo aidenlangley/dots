@@ -1,8 +1,0 @@
-#! /usr/bin/env bash
-
-docs_tag=$(qalc -t "2 ^ 29")
-riverctl map normal Super D toggle-focused-tags "$docs_tag"
-riverctl map normal Super+Shift D set-view-tags "$docs_tag"
-
-all_but_docs_tag=$((ALL_TAGS ^ docs_tag))
-riverctl spawn-tagmask ${all_but_docs_tag}

@@ -1,8 +1,0 @@
-#! /usr/bin/env bash
-
-scratch_tag=$(qalc -t "2 ^ 30")
-riverctl map normal Super T toggle-focused-tags "$scratch_tag"
-riverctl map normal Super+Shift T set-view-tags "$scratch_tag"
-
-all_but_scratch_tag=$((ALL_TAGS ^ scratch_tag))
-riverctl spawn-tagmask ${all_but_scratch_tag}

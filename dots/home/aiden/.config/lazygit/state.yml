@@ -1,8 +1,9 @@
 lastupdatecheck: 0
 recentrepos:
-- /home/aiden/.cache/nedots
-- /home/aiden/Code/nedots
 - /home/aiden/Code/nedots.go
+- /home/aiden/.cache/yay/nedots
+- /home/aiden/Code/nedots
+- /home/aiden/.cache/nedots
 - /home/aiden/.config/nvim
 - /home/aiden/Code/nedots.go/src
 - /home/aiden/Code/auto-save.nvim
