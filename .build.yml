@@ -4,7 +4,7 @@ triggers:
     condition: failure
     to: Aiden Langley <aiden@nedia.dev>
 secrets:
-  - bbc61c83-9efc-4aad-86ec-51f6b5078249
+  - a77b73f8-c9ba-4789-b7ca-63a9aec01163
 tasks:
   - mirror: |
       cd dots
