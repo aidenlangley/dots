@@ -8,4 +8,8 @@ if status is-interactive
 
     # Use LTS nodejs
     nvm use lts &>/dev/null
+
+    # Autostart a zellij session
+    # set -x ZELLIJ_AUTO_EXIT true
+    # eval (zellij setup --generate-auto-start fish | string collect)
 end

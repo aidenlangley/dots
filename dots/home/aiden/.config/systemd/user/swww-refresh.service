@@ -1,15 +1,11 @@
 [Unit]
 Description=Change wallpaper via swww
 
-After=graphical-session.target
+After=swww.service
 Wants=swww.timer
 
 OnFailure=notify-err@%n
 
 [Service]
 Type=oneshot
-Environment=\
-SWWW_TRANSITION_TYPE=wipe \
-SWWW_TRANSITION_ANGLE=30
-
-ExecStart=-%h/.local/bin/swww-refresh %h/Wallpapers
+ExecStart=-/usr/local/bin/swww-refresh %h/Pictures/Wallpapers/Desktop/

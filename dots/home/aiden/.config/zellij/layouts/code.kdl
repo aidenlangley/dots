@@ -1,0 +1,18 @@
+layout {
+    tab name="code" {
+        pane split_direction="vertical" {
+            pane name="files" {
+                size "20%"
+                cwd "~/Code"
+                command "broot"
+                close_on_exit true
+            }
+
+            pane name="term"
+        }
+
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+    }
+}

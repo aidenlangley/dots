@@ -30,7 +30,7 @@ bar:
     bottom-width: 1
     color: *border
   font: *font
-  monitor: "DP-3"
+  monitor: "HDMI-A-1"
 
   left:
     # Highlights windows that are tagged
@@ -38,45 +38,32 @@ bar:
         anchors:
           - padding: &river_padding 16
           - base: &river_base
-              default: {string: {text: "{id}", margin: *river_padding}}
+              default: { string: { text: "{id}", margin: *river_padding } }
               conditions:
-                id == 30:
-                  - string:
-                      text: "󰈙"
-                      font: *symbols
-                      margin: *river_padding
-                # Scratch (terminal)
-                id == 31:
-                  - string:
-                      text: ""
-                      font: *symbols
-                      margin: *river_padding
-                # Sticky
-                # id == 32: {string: {text: "", margin: *river_padding}}
-                id == 32: {empty: {}}
+                id == 32: { empty: {} }
         content:
           map:
             on-click:
               left: sh -c "riverctl set-focused-tags $((1 << ({id} - 1)))"
               right: sh -c "riverctl toggle-focused-tags $((1 << ({id} -1)))"
-            default: {empty: {}}
+            default: { empty: {} }
             conditions:
               state == "urgent":
                 map:
                   <<: *river_base
                   font: *bold
                   foreground: *bg
-                  deco: {background: {color: *urgent}}
+                  deco: { background: { color: *urgent } }
               state == "focused":
                 map:
                   <<: *river_base
                   font: *bold
                   foreground: *bg
-                  deco: {background: {color: *fg}}
+                  deco: { background: { color: *fg } }
               state == "unfocused":
                 map:
                   <<: *river_base
-                  deco: {background: {color: *border}}
+                  deco: { background: { color: *border } }
               occupied:
                 map:
                   <<: *river_base
@@ -87,7 +74,7 @@ bar:
           map:
             on-click:
               left: /home/aiden/.local/bin/river-enter-mode normal
-            default: {empty: {}}
+            default: { empty: {} }
             conditions:
               mode == "float":
                 - string:
@@ -103,7 +90,6 @@ bar:
                     margin: *spacing
 
     - mem:
-        # interval: 2000
         anchors:
           - icon: &mem_icon ""
           - used: &mem_used "{used:mb}"
@@ -115,8 +101,8 @@ bar:
                   text: *mem_icon
                   font: *symbols
                   margin: *spacing
-              - string: {text: *mem_used}
-              - string: {text: *mem_denom}
+              - string: { text: *mem_used }
+              - string: { text: *mem_denom }
             conditions:
               percent_used >= 90:
                 - string:
@@ -215,13 +201,13 @@ bar:
                     text: *cpu_usage
                     foreground: *light
               id < 0:
-                - string: {text: *cpu_icon, font: *symbols, margin: *spacing}
-                - string: {text: *cpu_usage}
+                - string: { text: *cpu_icon, font: *symbols, margin: *spacing }
+                - string: { text: *cpu_usage }
 
     - script:
         path: "/home/aiden/.local/bin/cputemp"
         args: [2]
-        anchors: {temp: &temp "{temp}°C"}
+        anchors: { temp: &temp "{temp}°C" }
         content:
           ramp:
             tag: temp
@@ -235,7 +221,7 @@ bar:
                         font: *symbols
                         foreground: *border
                         margin: *spacing
-                    - string: {text: *temp, foreground: *border}
+                    - string: { text: *temp, foreground: *border }
               - list:
                   items:
                     - string:
@@ -243,15 +229,15 @@ bar:
                         font: *symbols
                         foreground: *light
                         margin: *spacing
-                    - string: {text: *temp, foreground: *light}
+                    - string: { text: *temp, foreground: *light }
               - list:
                   items:
-                    - string: {text: "", font: *symbols, margin: *spacing}
-                    - string: {text: *temp}
+                    - string: { text: "", font: *symbols, margin: *spacing }
+                    - string: { text: *temp }
               - list:
                   items:
-                    - string: {text: "", font: *symbols, margin: *spacing}
-                    - string: {text: *temp}
+                    - string: { text: "", font: *symbols, margin: *spacing }
+                    - string: { text: *temp }
               - list:
                   items:
                     - string:
@@ -321,11 +307,11 @@ bar:
         content:
           map:
             default:
-              - string: {text: "{app-id} ", foreground: *light}
-              - string: {text: "|", foreground: *border}
-              - string: {text: "{title}", max: 64, margin: *spacing}
+              - string: { text: "{app-id} ", foreground: *light }
+              - string: { text: "|", foreground: *border }
+              - string: { text: "{title}", max: 64, margin: *spacing }
             conditions:
-              ~activated: {empty: {}}
+              ~activated: { empty: {} }
 
   right:
     - script:
@@ -335,60 +321,34 @@ bar:
             on-click:
               left: "/home/aiden/.local/bin/idle-toggle"
             default:
-              - string: {text: " ", foreground: *highlight}
+              - string: { text: " ", foreground: *highlight }
             conditions:
               status:
-                - string: {text: " ", foreground: *light}
+                - string: { text: " ", foreground: *light }
 
     - script:
         path: "/home/aiden/.local/bin/vol"
-        poll-interval: 1000
         content:
           map:
             on-click:
-              left: "/home/aiden/.local/bin/vol toggle"
+              left: "/home/aiden/.local/bin/volctl toggle"
               right: "pavucontrol"
-              wheel-up: "/home/aiden/.local/bin/vol up 1"
-              wheel-down: "/home/aiden/.local/bin/vol down 1"
+              wheel-up: "/home/aiden/.local/bin/volctl up 5"
+              wheel-down: "/home/aiden/.local/bin/volctl down 5"
             default:
-              ramp:
-                tag: vol
-                min: 0
-                max: 200
-                items:
-                  - list:
-                      items:
-                        - string: {text: "{vol}%", margin: *spacing}
-                        - string: {text: "󰕿", font: *symbols}
-                  - list:
-                      items:
-                        - string: {text: "{vol}%", margin: *spacing}
-                        - string: {text: "󰖀", font: *symbols}
-                  - list:
-                      items:
-                        - string: {text: "{vol}%", margin: *spacing}
-                        - string: {text: "󰕾", font: *symbols}
+              - string: { text: "muted 󰸈", foreground: *light }
             conditions:
-              mute:
-                - list:
-                    items:
-                      - string:
-                          text: "muted"
-                          foreground: *light
-                          margin: *spacing
-                      - string:
-                          text: "󰸈"
-                          font: *symbols
-                          foreground: *light
+              vol > 0 && ~mute:
+                - string: { text: "{vol}% 󰖀" }
 
     - clock:
         date-format: "%a %d"
         time-format: "%H:%M:%S"
         content:
-          - string: {text: "{date}"}
-          - string: {text: ",", foreground: *light}
-          - string: {text: "{time}", font: *bold, margin: *spacing}
-          - string: {text: "", font: *symbols}
+          - string: { text: "{date}" }
+          - string: { text: ",", foreground: *light }
+          - string: { text: "{time}", font: *bold, margin: *spacing }
+          - string: { text: "", font: *symbols }
 
     - network:
         name: "wlo1"
@@ -398,11 +358,11 @@ bar:
             on-click:
               right: nm-connection-editor
             conditions:
-              ~carrier: {empty: {}}
+              ~carrier: { empty: {} }
               carrier:
                 map:
                   default:
                     # - string: { text: "{ssid}", margin: *spacing }
-                    - string: {text: "", font: *symbols}
+                    - string: { text: "", font: *symbols }
                   conditions:
-                    state == "down": {string: {text: "󰅛"}}
+                    state == "down": { string: { text: "󰅛" } }

@@ -1,9 +1,13 @@
-#! /usr/bin/env bash
+#! /usr/bin/env sh
 
-path=/var/tmp/idle-status
-mkfifo $path &>/dev/null || echo "status|bool|true" && echo
+FIFO='/var/tmp/idle-status'
+mkfifo ${FIFO}
+
+cat <<EOF
+status|bool|true
+
+EOF
 
 while true; do
-	cat $path
-	echo
+	cat ${FIFO}
 done

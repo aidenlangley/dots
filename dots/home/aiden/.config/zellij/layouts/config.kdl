@@ -1,0 +1,34 @@
+layout {
+    tab name="config" {
+        pane split_direction="vertical" {
+            pane split_direction="horizontal" {
+                size "20%"
+
+                pane name="files" stacked=true {
+                    pane name="config" expanded=true {
+                        cwd "~/.config"
+                        command "broot"
+                        close_on_exit true
+                    }
+
+                    pane name="root" {
+                        cwd "/"
+                        command "broot"
+                        close_on_exit true
+                    }
+                }
+            }
+
+            pane split_direction="horizontal" {
+                pane name="editor" focus=true {
+                    cwd "~/.config"
+                    command "nvim"
+                }
+            }
+        }
+
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+    }
+}

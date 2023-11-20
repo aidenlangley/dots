@@ -1,0 +1,27 @@
+layout {
+    pane_template name="cargo" {
+        command "cargo"
+    }
+
+    tab name="rust" {
+        pane split_direction="vertical" {
+            pane focus=true {
+                size "60%"
+                edit "src/main.rs"
+            }
+
+            pane split_direction="horizontal" {
+                cargo focus=true {
+                    args "run"
+                }
+                cargo {
+                    args "test"
+                }
+            }
+        }
+
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+    }
+}

@@ -1,0 +1,33 @@
+#! /usr/bin/env bash
+
+SINK='@DEFAULT_AUDIO_SINK@'
+VOL=$(wpctl get-volume "${SINK}")
+
+echo "${VOL}" | grep 'MUTED' && MUTE=true || MUTE=false
+VOL=$(printf '%.0f\n' "$(qalc -t "$(echo "${VOL}" | awk '{print $2}')" \* 100)")
+
+CMD=$1
+VOL_CHANGE=$2
+
+case "${CMD}" in
+'toggle')
+	wpctl set-mute "${SINK}" toggle
+	"${MUTE}" && MUTE=false || MUTE=true
+	;;
+'up' | 'down')
+	if [ "${CMD}" = 'up' ] && [ "${VOL}" -lt 100 ]; then
+		VOL=$(qalc -t "${VOL}" + "${VOL_CHANGE}")
+	elif [ "${CMD}" = 'down' ] && [ "${VOL}" -gt 0 ]; then
+		VOL=$(qalc -t "${VOL}" - "${VOL_CHANGE}")
+	fi
+
+	wpctl set-mute "${SINK}" 0
+	wpctl set-volume -l 1 "${SINK}" "${VOL}%"
+	;;
+esac
+
+cat <<EOF >>/var/tmp/vol
+vol|int|${VOL}
+mute|bool|${MUTE}
+
+EOF

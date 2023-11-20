@@ -15,6 +15,6 @@ Wants=graphical-session-pre.target
 Wants=gtk.service
 Wants=idle.service
 Wants=pipewire-pulse.service
-Wants=swww.service
+Wants=swww.service swww-refresh.service
 
 OnFailure=notify-err@%n

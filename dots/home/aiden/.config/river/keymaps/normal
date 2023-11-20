@@ -3,9 +3,12 @@
 mod="Super"
 
 riverctl map normal $mod Return spawn foot
-riverctl map normal $mod Slash spawn ulauncher
+riverctl map normal $mod+Shift Return spawn 'foot zellij --layout dashboard'
+riverctl map normal $mod Slash spawn ulauncher-toggle
 riverctl map normal $mod B spawn firefox
-riverctl map normal $mod E spawn 'foot -e nvim'
+riverctl map normal $mod M spawn 'MOZ_ENABLE_WAYLAND=1 thunderbird'
+riverctl map normal $mod E spawn 'foot zellij --layout code'
+riverctl map normal $mod Comma spawn 'foot zellij --layout config'
 riverctl map normal $mod+Shift E spawn thunar
 
 riverctl map normal $mod T toggle-float
@@ -15,8 +18,8 @@ riverctl map normal $mod F toggle-fullscreen
 riverctl map normal $mod Escape spawn waylock-run
 riverctl map normal $mod+Shift Q exit
 
-riverctl map normal $mod J swap previous
-riverctl map normal $mod K swap next
+riverctl map normal $mod K swap previous
+riverctl map normal $mod J swap next
 riverctl map normal $mod Up swap previous
 riverctl map normal $mod Down swap next
 
@@ -27,9 +30,9 @@ riverctl map normal $mod Right focus-view next
 riverctl map normal Alt Tab focus-previous-tags
 
 riverctl map normal $mod Period focus-output next
-riverctl map normal $mod Comma focus-output previous
+# riverctl map normal $mod Comma focus-output previous
 riverctl map normal $mod+Shift Period send-to-output next
-riverctl map normal $mod+Shift Comma send-to-output previous
+# riverctl map normal $mod+Shift Comma send-to-output previous
 
 riverctl map -repeat normal $mod+Control H send-layout-cmd rivertile "main-ratio -0.05"
 riverctl map -repeat normal $mod+Control L send-layout-cmd rivertile "main-ratio +0.05"
@@ -68,9 +71,9 @@ riverctl map passthrough $mod F11 spawn 'river-enter-mode normal'
 
 # Enable these mappings when locked as well in normal mode.
 for mode in normal locked; do
-	riverctl map -repeat $mode None XF86AudioRaiseVolume spawn 'vol up 1'
-	riverctl map -repeat $mode None XF86AudioLowerVolume spawn 'vol down 1'
-	riverctl map $mode None XF86AudioMute spawn 'vol toggle'
+	riverctl map -repeat $mode None XF86AudioRaiseVolume spawn 'volctl up 1'
+	riverctl map -repeat $mode None XF86AudioLowerVolume spawn 'volctl down 1'
+	riverctl map $mode None XF86AudioMute spawn 'volctl toggle'
 	riverctl map $mode None XF86AudioMicMute spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
 
 	riverctl map $mode None XF86AudioPlay spawn "playerctl play-pause"

@@ -1,46 +1,20 @@
 #! /usr/bin/env sh
 
-get_vol() {
-	pactl get-sink-volume @DEFAULT_SINK@ |
-		awk '/front-left/{print $5}' |
-		sed 's/\(.*\)%/\1/'
-}
+SINK='@DEFAULT_AUDIO_SINK@'
+VOL=$(wpctl get-volume "${SINK}")
 
-notify() {
-	vol=$(get_vol)
-	notify-send -a volume -u low \
-		-h string:image-path:/usr/share/icons/Qogir-dark/24/panel/rhythmbox-indicator.svg \
-		-h string:wired-tag:volume \
-		-h int:value:"$vol" -h string:x-canonical-private-synchronous:volume \
-		"$vol% Volume" "$1"
-}
+echo "${VOL}" | grep 'MUTED' && MUTE=true || MUTE=false
+VOL=$(printf '%.0f\n' "$(qalc -t "$(echo "${VOL}" | awk '{print $2}')" \* 100)")
 
-cmd=$1
-increment=$2
+cat <<EOF
+vol|int|${VOL}
+mute|bool|${MUTE}
 
-case "$cmd" in
-'toggle')
-	pactl set-sink-mute @DEFAULT_SINK@ toggle
-	notify "Toggled mute"
-	;;
-'up')
-	pactl set-sink-volume @DEFAULT_SINK@ "+$increment%"
-	notify "Increased volume"
-	;;
-'down')
-	pactl set-sink-volume @DEFAULT_SINK@ "-$increment%"
-	notify "Decreased volume"
-	;;
-'' | *)
-	muted=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '/Mute/{print $2}')
-	if test "$muted" = "yes"; then
-		echo "vol|int|0"
-		echo "mute|bool|true"
-		echo
-	else
-		echo "vol|int|$(get_vol)"
-		echo "mute|bool|false"
-		echo
-	fi
-	;;
-esac
+EOF
+
+FIFO='/var/tmp/vol'
+mkfifo "${FIFO}"
+
+while true; do
+	cat "${FIFO}"
+done

@@ -1,0 +1,26 @@
+layout {
+    pane split_direction="vertical" {
+        pane name="stats" {
+            command "btop"
+        }
+
+        pane split_direction="horizontal" {
+            pane name="journal" {
+                command "journalctl"
+                args "-xeb" "-f"
+                focus true
+            }
+
+            pane name="zellij" {
+                command "tail"
+                args "-f" "/tmp/zellij-1000/zellij-log/zellij.log"
+            }
+        }
+    }
+}
+
+keybinds {
+    normal {
+        bind "Ctrl q" { Quit; }
+    }
+}

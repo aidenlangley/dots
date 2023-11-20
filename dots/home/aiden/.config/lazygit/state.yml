@@ -1,10 +1,16 @@
 lastupdatecheck: 0
 recentrepos:
+- /home/aiden/.local/share/nedots
+- /home/aiden/Code/nedots
+- /home/aiden/.config/nvim
+- /home/aiden/Code/zellij
+- /home/aiden/.vm
+- /home/aiden/Code/paths
+- /home/aiden/Code/email-test-drive
+- /home/aiden/.cache/nedots
+- /home/aiden/nedots-sample
 - /home/aiden/Code/nedots.go
 - /home/aiden/.cache/yay/nedots
-- /home/aiden/Code/nedots
-- /home/aiden/.cache/nedots
-- /home/aiden/.config/nvim
 - /home/aiden/Code/nedots.go/src
 - /home/aiden/Code/auto-save.nvim
 - /home/aiden/Code/nedots.go-test/src
@@ -13,7 +19,6 @@ recentrepos:
 - /home/aiden/Code/auto-format.nvim
 - /home/aiden/Code/riverlane
 - /home/aiden/Code/nedia.dev@sr.ht
-- /home/aiden/.local/share/nedots
 startuppopupversion: 5
 customcommandshistory: []
 hidecommandlog: false

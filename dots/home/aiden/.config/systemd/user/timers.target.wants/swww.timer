@@ -1,10 +1,1 @@
-[Unit]
-Description=Refreshes swww wallpaper
-
-OnFailure=notify-err@%n
-
-[Timer]
-OnUnitActiveSec=300
-
-[Install]
-WantedBy=timers.target
+/home/aiden/.config/systemd/user/swww.timer

@@ -1,18 +1,13 @@
-#! /usr/bin/env bash
+#! /usr/bin/env sh
 
-idle_status() {
-	systemctl --user status idle.service &>/dev/null
-	return $?
-}
-
-template='status|bool'
-fifo=/var/tmp/idle-status
-status=idle_status
-
-if $status; then
-	systemctl --user stop idle.service
-	echo "$template|false" >$fifo
-else
-	systemctl --user start idle.service
-	echo "$template|true" >$fifo
+IDLE=true
+if systemctl --user status idle.service; then
+	IDLE=false
 fi
+
+systemctl --user "$(${IDLE} && echo 'start' || echo 'stop')" idle.service
+
+cat <<EOF >>/var/tmp/idle-status
+status|bool|$(${IDLE} && echo 'true' || echo 'false')
+
+EOF

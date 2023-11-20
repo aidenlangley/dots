@@ -8,7 +8,8 @@ PartOf=graphical-session.target
 OnFailure=notify-err@%n
 
 [Service]
-Type=simple
+BusName=io.ulauncher.Ulauncher
+Type=dbus
 Restart=always
 RestartSec=1
-ExecStart=env GDK_BACKEND=wayland /usr/bin/ulauncher --hide-window
+ExecStart=/usr/bin/ulauncher --no-window

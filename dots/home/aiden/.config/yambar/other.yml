@@ -21,9 +21,9 @@ spacing: &spacing 4
 margin: &margin 12
 
 bar:
-  monitor: "eDP-1"
+  monitor: "HDMI-A-5"
   location: "top"
-  height: 32
+  height: 40
   spacing: *spacing
   right-margin: *margin
   background: *bg
@@ -39,7 +39,7 @@ bar:
         anchors:
           - padding: &river_padding 12
           - base: &river_base
-              default: {string: {text: "{id}", margin: *river_padding}}
+              default: { string: { text: "{id}", margin: *river_padding } }
               conditions:
                 id == 30:
                   - string:
@@ -54,30 +54,30 @@ bar:
                       margin: *river_padding
                 # Sticky
                 # id == 32: {string: {text: "", margin: *river_padding}}
-                id == 32: {empty: {}}
+                id == 32: { empty: {} }
         content:
           map:
             on-click:
               left: sh -c "riverctl set-focused-tags $((1 << ({id} - 1)))"
               right: sh -c "riverctl toggle-focused-tags $((1 << ({id} -1)))"
-            default: {empty: {}}
+            default: { empty: {} }
             conditions:
               state == "urgent":
                 map:
                   <<: *river_base
                   font: *bold
                   foreground: *bg
-                  deco: {background: {color: *urgent}}
+                  deco: { background: { color: *urgent } }
               state == "focused":
                 map:
                   <<: *river_base
                   font: *bold
                   foreground: *bg
-                  deco: {background: {color: *fg}}
+                  deco: { background: { color: *fg } }
               state == "unfocused":
                 map:
                   <<: *river_base
-                  deco: {background: {color: *border}}
+                  deco: { background: { color: *border } }
               occupied:
                 map:
                   <<: *river_base
@@ -87,146 +87,19 @@ bar:
         content:
           map:
             default:
-              - string: {text: "[", foreground: *light}
-              - string: {text: "{app-id}", font: *bold}
-              - string: {text: "]", foreground: *light}
-              - string: {text: "{title}", max: 64, margin: *spacing}
+              - string: { text: "[", foreground: *light }
+              - string: { text: "{app-id}", font: *bold }
+              - string: { text: "]", foreground: *light }
+              - string: { text: "{title}", max: 64, margin: *spacing }
             conditions:
-              ~activated: {empty: {}}
+              ~activated: { empty: {} }
 
   right:
     - clock:
+        date-format: "%a %d"
         time-format: "%H:%M:%S"
         content:
-          - string: {text: "{time}", font: *bold, margin: *spacing}
-          - string: {text: "", font: *symbols}
-
-    - battery:
-        name: "BAT0"
-        poll-interval: 30
-        anchors:
-          capacity: &capacity "{capacity}%"
-          estimate: &estimate "{estimate}"
-        content:
-          map:
-            default:
-              ramp:
-                tag: "capacity"
-                min: 0
-                max: 100
-                items:
-                  - list:
-                      items:
-                        - string:
-                            text: *capacity
-                            font: *bold
-                            foreground: *urgent
-                            margin: *spacing
-                        - string:
-                            text: ""
-                            font: *symbols
-                            foreground: *urgent
-                  - list:
-                      items:
-                        - string:
-                            text: *capacity
-                            font: *bold
-                            foreground: *urgent
-                            margin: *spacing
-                        - string:
-                            text: ""
-                            font: *symbols
-                            foreground: *urgent
-                  - list:
-                      items:
-                        - string: {text: *capacity, margin: *spacing}
-                        - string:
-                            text: ""
-                            font: *symbols
-                            foreground: *highlight
-                  - list:
-                      items:
-                        - string: {text: *capacity, margin: *spacing}
-                        - string:
-                            text: ""
-                            font: *symbols
-                            foreground: *highlight
-                  - list:
-                      items:
-                        - string: {text: *capacity, margin: *spacing}
-                        - string: {text: "", font: *symbols}
-                  - list:
-                      items:
-                        - string: {text: *capacity, margin: *spacing}
-                        - string: {text: "", font: *symbols}
-                  - list:
-                      items:
-                        - string: {text: *capacity, margin: *spacing}
-                        - string: {text: "", font: *symbols}
-                  - list:
-                      items:
-                        - string: {text: *capacity, margin: *spacing}
-                        - string: {text: "", font: *symbols}
-                  - list:
-                      items:
-                        - string: {text: *capacity, margin: *spacing}
-                        - string: {text: "", font: *symbols}
-                  - list:
-                      items:
-                        - string: {text: *capacity, margin: *spacing}
-                        - string: {text: "", font: *symbols}
-                  - list:
-                      items:
-                        - string:
-                            text: ""
-                            font: *symbols
-                            foreground: *affirm
-            conditions:
-              state == "full":
-                - string: {text: "", font: *symbols, foreground: *affirm}
-              state == "charging":
-                ramp:
-                  tag: "capacity"
-                  min: 0
-                  max: 100
-                  items:
-                    - list:
-                        items:
-                          - string: {text: *estimate, margin: *spacing}
-                          - string:
-                              text: ""
-                              font: *symbols
-                              foreground: *urgent
-                    - list:
-                        items:
-                          - string: {text: *estimate, margin: *spacing}
-                          - string:
-                              text: ""
-                              font: *symbols
-                              foreground: *highlight
-                    - list:
-                        items:
-                          - string: {text: *estimate, margin: *spacing}
-                          - string: {text: "", font: *symbols}
-                    - list:
-                        items:
-                          - string: {text: *estimate, margin: *spacing}
-                          - string: {text: "", font: *symbols}
-                    - list:
-                        items:
-                          - string: {text: *estimate, margin: *spacing}
-                          - string: {text: "", font: *symbols}
-                    - list:
-                        items:
-                          - string: {text: *estimate, margin: *spacing}
-                          - string: {text: "", font: *symbols}
-                    - list:
-                        items:
-                          - string: {text: *estimate, margin: *spacing}
-                          - string: {text: "", font: *symbols}
-                    - list:
-                        items:
-                          - string:
-                              text: ""
-                              font: *symbols
-                              foreground: *affirm
+          - string: { text: "{date}" }
+          - string: { text: ",", foreground: *light }
+          - string: { text: "{time}", font: *bold, margin: *spacing }
+          - string: { text: "", font: *symbols }

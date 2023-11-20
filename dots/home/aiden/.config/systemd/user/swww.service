@@ -4,7 +4,6 @@ Documentation=https://github.com/Horus645/swww
 
 After=graphical-session-pre.target
 PartOf=graphical-session.target
-Wants=swww-refresh.service
 
 OnFailure=notify-err@%n
 

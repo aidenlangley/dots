@@ -1,0 +1,24 @@
+layout {
+    pane_template name="go" {
+        command "go"
+        start_suspended true
+    }
+
+    tab name="go" {
+        pane split_direction="vertical" {
+            pane focus=true {
+                size "60%"
+                edit "main.go"
+            }
+
+            pane split_direction="horizontal" {
+                go { args "test" "./..."; }
+                go { args "build" "."; }
+            }
+        }
+
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+    }
+}
